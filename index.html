@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Richard Elikem - Product Designer. Portfolio showcasing skills, projects, and contact information.">
+    <meta name="keywords" content="Product Designer, Portfolio, UX, UI, Web Design, HTML, CSS, Figma, Prototyping, Contact, Collaboration">
+    <meta name="theme-color" content="#5B7EFF">
+    <meta property="og:title" content="Richard Elikem - Product Designer Portfolio">
+    <meta property="og:description" content="Modern portfolio website for Richard Elikem, Product Designer.">
+    <meta property="og:type" content="website">
+    <meta name="google-site-verification" content="CjrTi8yZVYAp1URq9r94HX-8er7LIIlYrDay-KfJ9Go" />
+    <meta property="og:url" content="https://elitron-portfolio.vercel.app/">
+    <meta property="og:image" content="assets/elinode_logo.png">
+    <title>Richard Elikem - Product Designer</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/elinode_logo.png" type="image/png">
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+
+    <!-- Mouse-following Glow -->
+    <div id="cursor-glow"></div>
+
+
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-image">
+					<img src="assets\elinode_logo.png" alt="Logo" class="logo-image">
+				</span>
+                <span class="logo-text">Richard Elikem</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#process" class="nav-link">Process</a></li>
+                <li class="nav-item"><a href="#work" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn-theme-toggle" id="themeToggle" title="Toggle dark mode">
+                    <span class="material-icons-outlined">dark_mode</span>
+                    <span class="material-icons" style="display: none;">light_mode</span>
+                </button>
+                <a class="btn-download-cv" href="assets/Richard_Elikem_Amenorpe_Resume.pdf" download>Download CV</a>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <!-- Freelance Badge -->
+                <div class="freelance-badge">
+                    <span class="badge-dot"></span>
+                    <span class="badge-text">Available for Freelance</span>
+                </div>
+
+                <!-- Hero Headline -->
+                <h1 class="hero-headline">I Design Digital Products That Users Actually Love</h1>
+
+                <!-- Hero Description -->
+                <p class="hero-description">
+                    I design intuitive digital products and user interfaces that solve real problems. I focus on clear user flows, usable layouts, and measurable product impact.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="hero-buttons">
+                    <button id="viewWorkBtn" class="btn btn-primary">View My Work</button>
+                    <button id="letsTalkBtn" class="btn btn-secondary">Let's Talk</button>
+                </div>
+
+                <!-- Hero Metrics -->
+                <div class="hero-metrics">
+                    <div class="metric">
+                        <span class="metric-icon">●</span>
+                        <span class="metric-text">50 Projects Delivered</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-icon">◎</span>
+                        <span class="metric-text">3 Years Experience</span>
+                    </div>
+                </div>
+            </div>
+     <!-- Hero Illustration/Image -->
+            <div class="hero-image">
+				<img src="assets/Hero.jpg" alt="Hero Illustration" class="hero-illustration">
+        </div><br>
+
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-content">
+                <!-- Section Badge -->
+                <div class="section-badge">
+                    <span class="badge-line"></span>
+                    <span class="badge-label">ABOUT ME</span>
+                </div>
+
+                <!-- About Headline -->
+                <h2 class="about-headline">Building Digital Solutions Through User-Centered Design</h2>
+
+                <!-- About Paragraphs -->
+                <div class="about-text">
+                    <p>
+                        I design digital products and user interfaces that solve real problems through clear structure and usable interaction. I focus on practical design decisions and user behavior. I believe technology only works when people understand it and move through it with ease.
+                    </p>
+                    <p>
+                        I have worked on product concepts and platforms across donation systems, fintech flows, dashboards, and e-commerce experiences. Each project strengthened my research, iteration, and feedback driven workflow. I design with user goals, business needs, and accessibility in mind.
+                    </p>
+                    <p>
+                        My approach blends product thinking with interface design and user support experience. I rely on empathy, clarity, and testing. I improve flows through iteration and real usage insight, and I build solutions that stay simple, efficient, and task focused.
+                    </p>
+                </div>
+
+                <!-- My Approach Section -->
+                <div class="my-approach">
+                    <h3 class="approach-title">My Approach</h3>
+                    <div class="approach-grid">
+                        <div class="approach-card">
+                            <div class="approach-icon">
+                                <span class="material-icons-outlined">person_outline</span>
+                            </div>
+                            <h4>User First</h4>
+                            <p>Every design decision starts with understanding user needs and pain points</p>
+                        </div>
+                        <div class="approach-card">
+                            <div class="approach-icon">
+                                <span class="material-icons-outlined">data_usage</span>
+                            </div>
+                            <h4>Data Informed</h4>
+                            <p>Combining qualitative insights with quantitative metrics for better outcomes</p>
+                        </div>
+                        <div class="approach-card">
+                            <div class="approach-icon">
+                                <span class="material-icons-outlined">repeat</span>
+                            </div>
+                            <h4>Iterative Process</h4>
+                            <p>Continuous testing and refinement to achieve optimal user experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Image -->
+            <div class="about-image">
+                <div class="about-image-placeholder">
+                    <img src="assets/main-overlay-plus.png" alt="About me illustration" class="about-illustration">
+                </div>
+                <!-- Tags Section -->
+                <div class="about-tags">
+                    <span class="tag">Figma</span>
+                    <span class="tag">Prototyping</span>
+                    <span class="tag">User Research</span>
+                    <span class="tag">Wireframing</span>
+                    <span class="tag">Design Systems</span>
+                    <span class="tag">Technical Support</span>
+                    <span class="tag">IT Support</span>
+                    <span class="tag">Customer Service</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What I Offer Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <div class="services-header">
+                <div class="section-badge">
+                    <span class="badge-line"></span>
+                    <span class="badge-label">SERVICES</span>
+                </div>
+                <h2 class="services-headline">What I Offer</h2>
+                <p class="services-subtitle">Comprehensive design and support services tailored to your needs</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon ui-design">
+                        <span class="material-icons-outlined">settings</span>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>Crafting intuitive interfaces for web and mobile applications with focus on user experience and visual appeal</p>
+                    <a href="#" class="learn-more">Learn More <span class="material-icons-outlined">arrow_outward</span></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon product-design">
+                        <span class="material-icons-outlined">layers</span>
+                    </div>
+                    <h3>Product Design</h3>
+                    <p>End-to-end product design from concept to high-fidelity prototypes and comprehensive design systems</p>
+                    <a href="#" class="learn-more">Learn More <span class="material-icons-outlined">arrow_outward</span></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon dashboard-design">
+                        <span class="material-icons-outlined">dashboard</span>
+                    </div>
+                    <h3>Dashboard Design</h3>
+                    <p>Complex data visualization and admin panel interfaces that make information accessible and actionable</p>
+                    <a href="#" class="learn-more">Learn More <span class="material-icons-outlined">arrow_outward</span></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon tech-support">
+                        <span class="material-icons-outlined">headphones</span>
+                    </div>
+                    <h3>Technical Support</h3>
+                    <p>Providing technical assistance and troubleshooting for software and hardware issues with clear communication</p>
+                    <a href="#" class="learn-more">Learn More <span class="material-icons-outlined">arrow_outward</span></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon it-support">
+                        <span class="material-icons-outlined">computer</span>
+                    </div>
+                    <h3>IT Support</h3>
+                    <p>Infrastructure support, system maintenance, and IT operations assistance for smooth business operations</p>
+                    <a href="#" class="learn-more">Learn More <span class="material-icons-outlined">arrow_outward</span></a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon customer-service">
+                        <span class="material-icons-outlined">support_agent</span>
+                    </div>
+                    <h3>Customer Service</h3>
+                    <p>Customer-facing support operations with focus on satisfaction and efficient problem resolution</p>
+                    <a href="#" class="learn-more">Learn More <span class="material-icons-outlined">arrow_outward</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Design Process Section -->
+    <section class="process" id="process">
+        <div class="process-container">
+            <div class="process-header">
+                <h2 class="process-headline">My Design Process</h2>
+                <p class="process-subtitle">A structured approach from research to delivery</p>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-step">01</div>
+                    <div class="process-icon research">
+                        <span class="material-icons-outlined">search</span>
+                    </div>
+                    <h3>Research</h3>
+                    <p>Understanding user needs, business goals, and market landscape</p>
+                    <div class="process-duration">
+                        <span class="material-icons-outlined">schedule</span>
+                        <span>1-2 weeks</span>
+                    </div>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-step">02</div>
+                    <div class="process-icon define">
+                        <span class="material-icons-outlined">lens</span>
+                    </div>
+                    <h3>Define</h3>
+                    <p>Creating user personas, journey maps, and problem statements</p>
+                    <div class="process-duration">
+                        <span class="material-icons-outlined">schedule</span>
+                        <span>3-5 days</span>
+                    </div>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-step">03</div>
+                    <div class="process-icon ideate">
+                        <span class="material-icons-outlined">lightbulb</span>
+                    </div>
+                    <h3>Ideate</h3>
+                    <p>Sketching solutions, user flows, and information architecture</p>
+                    <div class="process-duration">
+                        <span class="material-icons-outlined">schedule</span>
+                        <span>1 week</span>
+                    </div>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-step">04</div>
+                    <div class="process-icon wireframe">
+                        <span class="material-icons-outlined">dashboard</span>
+                    </div>
+                    <h3>Wireframe</h3>
+                    <p>Low-fidelity layouts focusing on structure and functionality</p>
+                    <div class="process-duration">
+                        <span class="material-icons-outlined">schedule</span>
+                        <span>1 week</span>
+                    </div>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-step">05</div>
+                    <div class="process-icon design">
+                        <span class="material-icons-outlined">palette</span>
+                    </div>
+                    <h3>Design</h3>
+                    <p>High-fidelity UI with visual design, components, and interactions</p>
+                    <div class="process-duration">
+                        <span class="material-icons-outlined">schedule</span>
+                        <span>2-3 weeks</span>
+                    </div>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-step">06</div>
+                    <div class="process-icon test">
+                        <span class="material-icons-outlined">check_circle</span>
+                    </div>
+                    <h3>Test & Iterate</h3>
+                    <p>User testing, feedback collection, and design refinement</p>
+                    <div class="process-duration">
+                        <span class="material-icons-outlined">schedule</span>
+                        <span>Ongoing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="projects" id="work">
+        <div class="projects-container">
+            <div class="projects-header">
+                <h2 class="projects-headline">Featured Projects</h2>
+                <p class="projects-subtitle">Real-world solutions designed with care to excel</p>
+            </div>
+
+            <!-- Featured Project -->
+            <div class="featured-project">
+                <div class="featured-content">
+                    <div class="project-badge2">
+                    <span class="badge-dot2"></span>
+                    <span>In Progress</span>
+                    </div>
+                    <h3>PulseAid Platform</h3>
+                     <div class="project-tags">
+                        <span class="project-tag">Web App</span>
+                        <span class="project-tag">Dashboard Design</span>
+                        <span class="project-tag">Multi-User System</span>
+                    </div>
+                    <p class="project-description">Comprehensive donation and support platform connecting donors with institutions through verified aid requests and transparent tracking</p>
+                    <a href="https://pulse-aid.vercel.app/" class="btn btn-primary" target="_blank">View Website</a>
+                </div>
+                <div class="featured-image">
+                    <img src="assets/main-container1.png" alt="PulseAI Platform">
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/plat.jpg" alt="Platera">
+                    </div>
+                    <div class="project-info">
+                        <h4>Platera</h4>
+                        <p>QR code based food ordering system for restaurants</p>
+                        <div class="project-tags-small">
+                            <span>Web Apps</span>
+                            <span>Prototyping</span>
+                            <span>UI/UX Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/veylo1.jpg" alt="Veylo">
+                    </div>
+                    <div class="project-info">
+                        <h4>Veylo</h4>
+                        <p>A digitalized Leave Management System</p>
+                        <div class="project-tags-small">
+                            <span>SaaS</span>
+                            <span>Product Design</span>
+                            <span>Wireframes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/Eli.jpg" alt="EliTech Creatives">
+                    </div>
+                    <div class="project-info">
+                        <h4>EliTech CreaTives Landing Page</h4>
+                        <p>Personal brand website showcasing services and portfolio</p>
+                        <div class="project-tags-small">
+                            <span>Landing Page</span>
+                            <span>Branding Design</span>
+                            <span>Web Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="assets/susu.jpg" alt="Susu">
+                    </div>
+                    <div class="project-info">
+                        <h4>Susu Landing Page</h4>
+                        <p>Premium design platform landing page with modern animations</p>
+                        <div class="project-tags-small">
+                            <span>Product</span>
+                            <span>Landing Page</span>
+                            <span>Prodcut Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Tools Section -->
+    <section class="skills" id="skills">
+        <div class="skills-container">
+            <div class="skills-header">
+                <h2 class="skills-headline">Skills & Tools</h2>
+                <p class="skills-subtitle">Technologies and methodologies I work with</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">category</span>
+                    </div>
+                    <p>Figma</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">search</span>
+                    </div>
+                    <p>User Research</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">dashboard</span>
+                    </div>
+                    <p>Wireframing</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">stop_circle</span>
+                    </div>
+                    <p>Prototyping</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">layers</span>
+                    </div>
+                    <p>Design Systems</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">check_circle</span>
+                    </div>
+                    <p>Usability Testing</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">info</span>
+                    </div>
+                    <p>Technical Support</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">dashboard</span>
+                    </div>
+                    <p>IT Operations</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">support_agent</span>
+                    </div>
+                    <p>Customer Service</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">code</span>
+                    </div>
+                    <p>HTML/CSS</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <span class="material-icons-outlined">group</span>
+                    </div>
+                    <p>Collaboration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Let's Work Together Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2 class="contact-headline">Let's Work Together</h2>
+                <p class="contact-subtitle">Available for freelance projects and internship opportunities</p>
+            </div>
+            <div class="contact-content">
+                <!-- Contact Form -->
+                <form class="contact-form" action="https://formspree.io/f/mreapnqb" method="POST" autocomplete="off">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Needed</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                            <option value="Product Design">Product Design</option>
+                            <option value="Dashboard Design">Dashboard Design</option>
+                            <option value="Technical Support">Technical Support</option>
+                            <option value="IT Support">IT Support</option>
+                            <option value="Customer Service">Customer Service</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="project">Project Details</label>
+                        <textarea id="project" name="project" placeholder="Tell me about your project..." maxlength="500"></textarea>
+                        <div class="char-count"><span id="charCount">0</span>/500 characters</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-submit">Send Message ✨</button>
+                </form>
+
+                <div class="form-status-modal" id="formStatusModal" aria-hidden="true" role="dialog" aria-live="polite">
+                    <div class="form-status-dialog" role="document">
+                        <div class="form-status-icon">
+                            <span class="material-icons-outlined" id="formStatusIcon">check_circle</span>
+                        </div>
+                        <h3 class="form-status-title" id="formStatusTitle">Message sent</h3>
+                        <p class="form-status-message" id="formStatusMessage">Thanks for reaching out. I will get back to you soon.</p>
+                    </div>
+                </div>
+
+                <!-- Other Ways to Reach Me -->
+                <div class="contact-sidebar">
+                    <h3 class="sidebar-title">Other Ways to Reach Me</h3>
+                    <div class="contact-info">
+                        <p class="contact-email">richardelikem31@gmail.com.com</p>
+                        <div class="availability-badge">
+                            <span class="badge-dot"></span>
+                            Currently available for projects
+                        </div>
+                    </div>
+
+                    <h4 class="connect-title">Connect with me</h4>
+                    <ul class="social-links">
+                        <li><a href="https://www.linkedin.com/in/richard-elikem-292107309/" target="_blank" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="https://instagram.com/vxn_ace" target="_blank" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="mailto:richardelikem31@gmail.com" aria-label="Email" title="Email"><i class="fas fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Richard Ellekem. All rights reserved.</p>
+            <ul class="footer-social">
+                <li><a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="https://instagram.com/vxn_ace/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="mailto:richard@eltechcreatives.com" aria-label="Email"><i class="fas fa-envelope"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+    <script>
+        // Modern Fade-in Transition on Page Load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('loaded');
+            
+            // Character Counter for Project Details
+            const projectField = document.getElementById('project');
+            const charCount = document.getElementById('charCount');
+            if (projectField && charCount) {
+                projectField.addEventListener('input', () => {
+                    charCount.textContent = projectField.value.length;
+                });
+            }
+        });
+
+        const form = document.querySelector('.contact-form');
+        const formStatusModal = document.getElementById('formStatusModal');
+        const formStatusTitle = document.getElementById('formStatusTitle');
+        const formStatusMessage = document.getElementById('formStatusMessage');
+        const formStatusIcon = document.getElementById('formStatusIcon');
+        const navbar = document.querySelector('.navbar');
+        const heroSection = document.querySelector('.hero');
+        const heroGrid = document.querySelector('.hero-grid');
+        const heroIllustration = document.querySelector('.hero-illustration');
+        let formStatusTimeout;
+        const heroMotion = {
+            parallaxY: 0,
+            tiltX: 0,
+            tiltY: 0,
+            currentX: 0,
+            currentY: 0,
+            targetX: 0,
+            targetY: 0
+        };
+        const heroMaxOffset = 28;
+
+        const updateNavbarState = () => {
+            if (!navbar) return;
+            if (window.scrollY > 20) {
+                navbar.classList.add('is-scrolled');
+            } else {
+                navbar.classList.remove('is-scrolled');
+            }
+        };
+
+        updateNavbarState();
+        window.addEventListener('scroll', updateNavbarState, { passive: true });
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let parallaxTicking = false;
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+        const updateHeroTarget = () => {
+            heroMotion.targetX = clamp(heroMotion.tiltX, -heroMaxOffset, heroMaxOffset);
+            heroMotion.targetY = clamp(heroMotion.tiltY, -heroMaxOffset, heroMaxOffset);
+        };
+
+        const applyHeroTransforms = () => {
+            if (!heroIllustration) return;
+            heroIllustration.style.transform = `translate3d(${heroMotion.currentX}px, ${heroMotion.parallaxY + heroMotion.currentY}px, 0)`;
+        };
+
+        const animateHeroInteraction = () => {
+            if (!heroIllustration) return;
+            heroMotion.currentX += (heroMotion.targetX - heroMotion.currentX) * 0.12;
+            heroMotion.currentY += (heroMotion.targetY - heroMotion.currentY) * 0.12;
+            applyHeroTransforms();
+            requestAnimationFrame(animateHeroInteraction);
+        };
+
+        if (!prefersReducedMotion && heroIllustration) {
+            updateHeroTarget();
+            animateHeroInteraction();
+        }
+
+        const updateHeroParallax = () => {
+            parallaxTicking = false;
+            if (!heroSection || !heroGrid || !heroIllustration || prefersReducedMotion) return;
+
+            const rect = heroSection.getBoundingClientRect();
+            if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+            const scrollProgress = Math.min(Math.max((window.innerHeight - rect.top) / (window.innerHeight + rect.height), 0), 1);
+            const gridOffset = (scrollProgress - 0.5) * 24;
+            const imageOffset = (scrollProgress - 0.5) * -40;
+
+            heroGrid.style.transform = `translateY(${gridOffset}px)`;
+            heroMotion.parallaxY = imageOffset;
+            applyHeroTransforms();
+        };
+
+        const onParallaxScroll = () => {
+            if (!parallaxTicking) {
+                parallaxTicking = true;
+                requestAnimationFrame(updateHeroParallax);
+            }
+        };
+
+        if (!prefersReducedMotion) {
+            updateHeroParallax();
+            window.addEventListener('scroll', onParallaxScroll, { passive: true });
+            window.addEventListener('resize', onParallaxScroll);
+        }
+
+        if (heroIllustration && !prefersReducedMotion) {
+            let motionEnabled = false;
+
+            const handleDeviceTilt = (event) => {
+                if (event.gamma == null || event.beta == null) return;
+                const tiltScale = 14;
+                heroMotion.tiltX = clamp((event.gamma / tiltScale) * heroMaxOffset, -heroMaxOffset, heroMaxOffset);
+                heroMotion.tiltY = clamp((event.beta / tiltScale) * heroMaxOffset, -heroMaxOffset, heroMaxOffset);
+                updateHeroTarget();
+            };
+
+            const enableTilt = async () => {
+                if (motionEnabled || typeof DeviceOrientationEvent === 'undefined') return;
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    try {
+                        const permission = await DeviceOrientationEvent.requestPermission();
+                        if (permission !== 'granted') {
+                            return;
+                        }
+                    } catch (error) {
+                        return;
+                    }
+                }
+                window.addEventListener('deviceorientation', handleDeviceTilt);
+                motionEnabled = true;
+            };
+
+            enableTilt();
+            heroIllustration.addEventListener('click', enableTilt);
+        }
+
+        const hideFormStatus = () => {
+            if (!formStatusModal) return;
+            formStatusModal.classList.remove('is-visible', 'is-success', 'is-error');
+            formStatusModal.setAttribute('aria-hidden', 'true');
+        };
+
+        const showFormStatus = ({ type, title, message }) => {
+            if (!formStatusModal || !formStatusTitle || !formStatusMessage || !formStatusIcon) return;
+
+            formStatusModal.classList.remove('is-success', 'is-error');
+            formStatusModal.classList.add('is-visible', type === 'error' ? 'is-error' : 'is-success');
+            formStatusModal.setAttribute('aria-hidden', 'false');
+            formStatusTitle.textContent = title;
+            formStatusMessage.textContent = message;
+            formStatusIcon.textContent = type === 'error' ? 'error_outline' : 'check_circle';
+
+            if (formStatusTimeout) {
+                clearTimeout(formStatusTimeout);
+            }
+            formStatusTimeout = setTimeout(hideFormStatus, 4500);
+        };
+
+        if (form && formStatusModal) {
+            const submitButton = form.querySelector('.btn-submit');
+
+            formStatusModal.addEventListener('click', (event) => {
+                if (event.target === formStatusModal) {
+                    hideFormStatus();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && formStatusModal.classList.contains('is-visible')) {
+                    hideFormStatus();
+                }
+            });
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Sending...';
+                }
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: new FormData(form),
+                        headers: {
+                            Accept: 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        form.reset();
+                        if (document.getElementById('charCount')) {
+                            document.getElementById('charCount').textContent = '0';
+                        }
+                        showFormStatus({
+                            type: 'success',
+                            title: 'Message sent',
+                            message: 'Thanks for reaching out. I will get back to you soon.'
+                        });
+                    } else {
+                        let errorMessage = `Submission failed (${response.status} ${response.statusText}).`;
+                        try {
+                            const data = await response.json();
+                            if (data && data.errors && data.errors.length) {
+                                errorMessage = data.errors.map((error) => error.message).join(' ');
+                            } else if (data && data.message) {
+                                errorMessage = data.message;
+                            }
+                        } catch (parseError) {
+                            errorMessage = `Unable to submit right now (${response.status}). Please try again later.`;
+                        }
+                        showFormStatus({
+                            type: 'error',
+                            title: 'Submission failed',
+                            message: errorMessage
+                        });
+                    }
+                } catch (error) {
+                    showFormStatus({
+                        type: 'error',
+                        title: 'Network error',
+                        message: 'Could not reach the server. Please try again shortly.'
+                    });
+                } finally {
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Send Message ✨';
+                    }
+                }
+            });
+        }
+
+        // Page Load Section Animation - Scroll Triggered
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and footer
+        document.querySelectorAll('section, .site-footer').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+        const sunIcon = themeToggle.querySelector('.material-icons');
+        const moonIcon = themeToggle.querySelector('.material-icons-outlined');
+
+        // Hero CTA Buttons - Smooth Scroll
+        const viewWorkBtn = document.getElementById('viewWorkBtn');
+        const letsTalkBtn = document.getElementById('letsTalkBtn');
+        
+        if (viewWorkBtn) {
+            viewWorkBtn.addEventListener('click', () => {
+                const workSection = document.getElementById('work');
+                if (workSection) {
+                    workSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+        
+        if (letsTalkBtn) {
+            letsTalkBtn.addEventListener('click', () => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+
+        // Dark/Light Mode Toggle
+
+        function setTheme(mode) {
+            if (mode === 'dark-mode') {
+                htmlElement.classList.add('dark-mode');
+                sunIcon.style.display = 'inline-flex';
+                moonIcon.style.display = 'none';
+            } else {
+                htmlElement.classList.remove('dark-mode');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline-flex';
+            }
+        }
+
+        // Check for saved theme preference or system preference
+        let currentTheme = localStorage.getItem('theme');
+        if (!currentTheme) {
+            currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark-mode' : 'light-mode';
+        }
+        setTheme(currentTheme);
+        localStorage.setItem('theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = htmlElement.classList.contains('dark-mode');
+            setTheme(isDark ? 'light-mode' : 'dark-mode');
+            localStorage.setItem('theme', isDark ? 'light-mode' : 'dark-mode');
+        });
+
+        // Mouse-following Glow Animation
+        const glow = document.getElementById('cursor-glow');
+        let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+        const glowSpeed = 0.18;
+        function animateGlow() {
+            glowX += (targetX - glowX) * glowSpeed;
+            glowY += (targetY - glowY) * glowSpeed;
+            if (glow) {
+                glow.style.left = glowX + 'px';
+                glow.style.top = glowY + 'px';
+            }
+            requestAnimationFrame(animateGlow);
+        }
+        if (glow) {
+            document.addEventListener('mousemove', function (e) {
+                targetX = e.clientX;
+                targetY = e.clientY;
+                glow.style.opacity = '1';
+            });
+            document.addEventListener('pointerdown', function (e) {
+                if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+                    targetX = e.clientX;
+                    targetY = e.clientY;
+                    glow.style.opacity = '1';
+                }
+            }, { passive: true });
+            document.addEventListener('pointermove', function (e) {
+                if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+                    targetX = e.clientX;
+                    targetY = e.clientY;
+                    glow.style.opacity = '1';
+                }
+            }, { passive: true });
+            document.addEventListener('pointerup', function () {
+                glow.style.opacity = '0';
+            }, { passive: true });
+            document.addEventListener('pointercancel', function () {
+                glow.style.opacity = '0';
+            }, { passive: true });
+            document.addEventListener('mouseleave', function () {
+                glow.style.opacity = '0';
+            });
+            document.addEventListener('mouseenter', function () {
+                glow.style.opacity = '1';
+            });
+            animateGlow();
+        }
+    </script>
+</body>
+</html>
