@@ -22,11 +22,16 @@ export default function Navbar() {
       if (isScrolled !== scrolled) {
         setScrolled(isScrolled);
         if (isScrolled) {
-          // Trigger the falling and catching animation
-          controls.start({
-            y: [0, 60, -10, 0],
-            transition: { duration: 0.7, times: [0, 0.4, 0.7, 1], ease: "easeInOut" }
-          });
+          if (window.innerWidth >= 768) {
+            // Trigger the falling and catching animation on desktop
+            controls.start({
+              y: [0, 60, -10, 0],
+              transition: { duration: 0.7, times: [0, 0.4, 0.7, 1], ease: "easeInOut" }
+            });
+          } else {
+            // No drop animation on mobile
+            controls.start({ y: 0, transition: { duration: 0.3 } });
+          }
         } else {
           // Reset position when at the top
           controls.start({ y: 0, transition: { duration: 0.3 } });
@@ -43,9 +48,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`sticky top-4 z-[60] transition-all duration-300 ease-in-out ${scrolled ? 'py-0' : 'pt-[26px] pb-4'}`}>
+    <nav className={`sticky top-2 md:top-4 z-[60] transition-all duration-300 ease-in-out ${scrolled ? 'py-0' : 'md:pt-[26px] md:pb-4 pt-2 pb-2'}`}>
       <motion.div animate={controls} className="relative mx-auto w-full">
-        <div className={`relative transition-all duration-300 ease-in-out border ${scrolled ? 'bg-black/50 backdrop-blur-lg border-white/10 rounded-full px-6 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]' : 'bg-transparent border-transparent px-0 py-0'}`}>
+        <div className={`relative transition-all duration-300 ease-in-out border ${scrolled ? 'bg-black/50 backdrop-blur-lg border-white/10 rounded-2xl md:rounded-full px-4 md:px-6 py-2 md:py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]' : 'bg-transparent border-transparent px-4 md:px-0 py-2 md:py-0'}`}>
         
         {/* Left Hanging Wire */}
         <div className={`absolute left-12 bottom-[calc(100%-4px)] hidden md:flex flex-col items-center transition-opacity duration-500 delay-300 pointer-events-none ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
