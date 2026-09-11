@@ -21,7 +21,7 @@ export default function AboutSection() {
         <div className="group flex justify-center lg:justify-end">
           <div className="w-full max-w-[350px] h-[420px] sm:h-[450px] border border-shade/30 rounded p-4 group-hover:transform group-hover:scale-105 transition-all ease duration-300 cursor-pointer">
              <div className="w-full h-full grayscale group-hover:grayscale-0 rounded overflow-hidden relative transition-all duration-300">
-               <img src="/Profile.png" alt="Richard Elikem" className="w-full h-full object-cover object-top" />
+               <img src="/Profile.png" alt="Richard Elikem" className="w-full h-full object-cover object-top translate-y-6 scale-[1.1]" />
              </div>
           </div>
         </div>
