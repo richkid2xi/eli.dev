@@ -3,7 +3,7 @@ export default function LittleBragSection() {
     <>
       <div className="pt-6 mt-16 md:mt-24">
         <div className="mb-10 md:mb-14 border-b pb-6 border-gray-700 border-dotted">
-          <h1 className="text-2xl md:text-4xl font-bold leading-relaxed">Little Brag...</h1>
+          <h2 className="text-2xl md:text-4xl font-bold leading-relaxed">Little Brag...</h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div className="text-shade">

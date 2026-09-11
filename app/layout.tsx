@@ -18,30 +18,31 @@ const proggy = localFont({
 
 const siteUrl = 'https://richardelikem.com'; // update when deployed
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Richard Elikem Amenorpe | Software Engineer & Technical Project Manager',
+    default: 'Richard Elikem | Software Engineer & Tech PM',
     template: '%s | Richard Elikem',
   },
   description:
-    'Portfolio of Richard Elikem Amenorpe — Software Engineer, Technical Project Manager, and founder building scalable products for African markets. Creator of Klavora, Verdis, and NameCheckGH.',
+    'Software Engineer & Technical Project Manager building scalable SaaS products for African markets. Creator of Klavora & Verdis.',
   keywords: [
     'Richard Elikem',
     'Richard Elikem Amenorpe',
-    'Richard Amenorpe',
     'Technical Project Manager',
     'Software Engineer Ghana',
-    'Full Stack Developer Ghana',
     'SaaS founder Africa',
     'Klavora',
     'Verdis',
     'NameCheckGH',
     'React Developer',
     'Next.js Developer',
-    'TypeScript',
-    'Project Manager portfolio',
-    'EliTech CreaTives',
   ],
   authors: [{ name: 'Richard Elikem Amenorpe', url: siteUrl }],
   creator: 'Richard Elikem Amenorpe',
@@ -62,12 +63,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'Richard Elikem — Portfolio',
-    title: 'Richard Elikem Amenorpe | Software Engineer & Technical Project Manager',
+    title: 'Richard Elikem | Software Engineer & Tech PM',
     description:
-      'Software Engineer, Technical Project Manager, and founder building scalable SaaS products for African markets. Explore my work on Klavora, Verdis, and NameCheckGH.',
+      'Software Engineer & Technical Project Manager building scalable SaaS products for African markets.',
     images: [
       {
-        url: '/Profile.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Richard Elikem Amenorpe — Portfolio',
@@ -76,13 +77,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Richard Elikem Amenorpe | Software Engineer & Technical Project Manager',
+    title: 'Richard Elikem | Software Engineer & Tech PM',
     description:
-      'Software Engineer, Technical Project Manager, and founder building scalable SaaS products for African markets.',
-    images: ['/Profile.png'],
+      'Software Engineer & Technical Project Manager building scalable SaaS products for African markets.',
+    images: ['/og-image.jpg'],
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: '/',
+    languages: {
+      'en': '/',
+      'en-US': '/en-US',
+    },
   },
 };
 

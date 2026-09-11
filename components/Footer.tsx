@@ -4,10 +4,10 @@ export default function Footer() {
       <div id="contact" className="flex-col justify-center items-center text-center mt-16 md:mt-[92px] relative">
         <div className="z-10 relative">
           <div className="border-b pb-6 border-gray-700 border-dotted mb-12 max-w-4xl mx-auto">
-            <h1 className="text-2xl md:text-4xl font-bold leading-relaxed">
+            <h2 className="text-2xl md:text-4xl font-bold leading-relaxed">
               And That's a Wrap –{' '}
               <span className="text-xl md:text-2xl font-normal">see you around :)</span>
-            </h1>
+            </h2>
           </div>
           <div className="flex flex-col justify-center space-y-8 px-4 md:px-16 lg:px-32 text-shade text-center text-sm md:text-base mb-12">
             <p className="max-w-2xl mx-auto leading-relaxed">

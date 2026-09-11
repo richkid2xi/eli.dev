@@ -48,9 +48,9 @@ export default function ExperienceSection() {
         
         {/* HEADER */}
         {/* Top-left aligned with inner grid (already handled by the container padding) */}
-        <h1 className="text-[32px] md:text-[40px] font-bold text-white tracking-wide">
+        <h2 className="text-[32px] md:text-[40px] font-bold text-white tracking-wide">
           Experience
-        </h1>
+        </h2>
         {/* Thin horizontal divider line below header */}
         <div className="w-full h-px bg-white/10 mt-6 mb-6 md:mt-6 md:mb-6 border-b border-white/10 border-dashed"></div>
         
@@ -91,14 +91,14 @@ export default function ExperienceSection() {
                   className="absolute inset-0"
                 >
                   {/* Role Title Line */}
-                  <h2 className="text-bright text-xl md:text-2xl font-medium flex flex-wrap items-center gap-2">
+                  <h3 className="text-bright text-xl md:text-2xl font-medium flex flex-wrap items-center gap-2">
                     {experiences[activeTab].role}
                     <span className="bg-gradient-to-r from-[#FF4FD8] to-[#C239B3] text-transparent bg-clip-text">
                       <a target="_blank" href={experiences[activeTab].link} rel="noreferrer">
                         @{experiences[activeTab].company.replace(/\s+/g, '').toLowerCase()}
                       </a>
                     </span>
-                  </h2>
+                  </h3>
                   
                   {/* Metadata line */}
                   <p className="proggy pt-2 text-lg text-[#8d8d8d]">

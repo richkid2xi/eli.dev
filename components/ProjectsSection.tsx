@@ -5,7 +5,7 @@ export default function ProjectsSection() {
     <>
       <div className="pt-6 mt-16 md:mt-24" id="projects">
         <div className="mb-10 md:mb-14 border-b pb-6 border-gray-700 border-dotted">
-          <h1 className="text-2xl md:text-4xl font-bold leading-relaxed">Projects</h1>
+          <h2 className="text-2xl md:text-4xl font-bold leading-relaxed">Projects</h2>
         </div>
 
         {/* Klavora Project */}
@@ -125,7 +125,7 @@ export default function ProjectsSection() {
       <div id="other-projects" className="hidden pt-6">
         <div className="text-center">
           <div className="mb-10 md:mb-14 border-b pb-6 border-gray-700 border-dotted">
-            <h1 className="text-2xl md:text-4xl font-bold leading-relaxed">Some Other Standout Projects</h1>
+            <h2 className="text-2xl md:text-4xl font-bold leading-relaxed">Some Other Standout Projects</h2>
           </div>
         </div>
 
