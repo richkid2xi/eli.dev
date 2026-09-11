@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/'],
       },
     ],
-    sitemap: 'https://richardelikem.com/sitemap.xml',
-    host: 'https://richardelikem.com',
+    sitemap: 'https://elidex.vercel.app/sitemap.xml',
+    host: 'https://elidex.vercel.app',
   };
 }

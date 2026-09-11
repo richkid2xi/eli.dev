@@ -16,7 +16,7 @@ const proggy = localFont({
   display: 'swap',
 });
 
-const siteUrl = 'https://richardelikem.com'; // update when deployed
+const siteUrl = 'https://elidex.vercel.app'; // update when deployed
 
 export const viewport = {
   width: 'device-width',
