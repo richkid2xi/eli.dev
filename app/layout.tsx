@@ -89,6 +89,9 @@ export const metadata: Metadata = {
       'en-US': '/en-US',
     },
   },
+  verification: {
+    google: 'CjrTi8yZVYAp1URq9r94HX-8er7LIIlYrDay-KfJ9Go',
+  },
 };
 
 export default function RootLayout({
