@@ -17,7 +17,7 @@ const jsonLd = {
   '@type': 'Person',
   name: 'Richard Elikem Amenorpe',
   alternateName: ['Richard Elikem', 'Richard Amenorpe'],
-  url: 'https://richardelikem.com',
+  url: 'elidex.vercel.app',
   jobTitle: ['Software Engineer', 'Technical Project Manager', 'Founder'],
   description:
     'Software Engineer and Technical Project Manager building scalable SaaS products for African markets. Founder of Klavora — a pharmacy inventory management SaaS for Ghanaian pharmacies.',

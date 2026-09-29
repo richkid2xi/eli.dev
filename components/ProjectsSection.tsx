@@ -19,7 +19,7 @@ export default function ProjectsSection() {
                   <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
                   <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
                 </div>
-                <div className="mx-auto proggy text-gray-500 text-sm">klavora.vercel.app</div>
+                <div className="mx-auto proggy text-gray-500 text-sm">klavora.store</div>
               </div>
               <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
                 <img src="/klavora.png" alt="Klavora" className="w-full h-full object-cover" />
@@ -29,7 +29,7 @@ export default function ProjectsSection() {
           <div>
             <div className="flex items-center justify-between">
               <h3 className="text-lg md:text-2xl font-bold my-3">
-                <Link href="https://klavora.vercel.app/" target="_blank" className="flex items-center gap-2 group">
+                <Link href="https://klavora.store/" target="_blank" className="flex items-center gap-2 group">
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-bright animate-gradient group-hover:opacity-80 transition">Klavora</span>
                   <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="text-shade group-hover:text-bright transition" height="0.8em" width="0.8em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 </Link>
