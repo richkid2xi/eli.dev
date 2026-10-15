@@ -36,19 +36,72 @@ export default function ProjectsSection() {
     }
   };
 
+  const scrollAnimRef = useRef<number | null>(null);
+
+  // Custom continuous RAF scroll that cannot be aborted by dynamic DOM height changes
+  const smoothScrollToTarget = (targetY: number, duration = 650, onComplete?: () => void) => {
+    if (typeof window === 'undefined') return;
+
+    if (scrollAnimRef.current !== null) {
+      cancelAnimationFrame(scrollAnimRef.current);
+      scrollAnimRef.current = null;
+    }
+
+    const startY = window.scrollY;
+    const distance = targetY - startY;
+
+    if (Math.abs(distance) < 8) {
+      window.scrollTo(0, targetY);
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const startTime = performance.now();
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const step = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const eased = easeInOutCubic(progress);
+
+      window.scrollTo(0, startY + distance * eased);
+
+      if (progress < 1) {
+        scrollAnimRef.current = requestAnimationFrame(step);
+      } else {
+        window.scrollTo(0, targetY);
+        scrollAnimRef.current = null;
+        if (onComplete) onComplete();
+      }
+    };
+
+    scrollAnimRef.current = requestAnimationFrame(step);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (scrollAnimRef.current !== null) {
+        cancelAnimationFrame(scrollAnimRef.current);
+      }
+    };
+  }, []);
+
   const toggleProjects = () => {
     if (showAllProjects) {
       if (typeof window !== 'undefined') {
         const firstProject =
           document.getElementById('case-study-klavora') ||
           document.getElementById('projects');
+
         if (firstProject) {
-          firstProject.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const rect = firstProject.getBoundingClientRect();
+          const targetY = Math.max(0, rect.top + window.scrollY - 84);
+          smoothScrollToTarget(targetY, 650);
         }
       }
-      setTimeout(() => {
-        setShowAllProjects(false);
-      }, 160);
+
+      setShowAllProjects(false);
     } else {
       setShowAllProjects(true);
     }
