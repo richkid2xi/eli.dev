@@ -17,7 +17,7 @@ export default function LeadershipSection() {
               Building a pharmacy inventory management SaaS for Ghanaian pharmacies, handling offline-first batch and expiry tracking, point-of-sale, and WhatsApp-based low-stock alerts. Took the product from concept to working software through direct outreach. Currently focused on backend reliability, billing infrastructure, and operational workflows across Ghana.
             </p>
           </div>
-          <a target="_blank" rel="noopener noreferrer" className="mt-8 block w-full overflow-hidden rounded-lg cursor-pointer hover:opacity-95 transition-opacity" href="https://klavora.store/">
+          <a target="_blank" rel="noopener noreferrer" aria-label="Visit Klavora pharmacy SaaS platform (opens in a new tab)" className="mt-8 block w-full overflow-hidden rounded-lg cursor-pointer hover:opacity-95 transition-opacity" href="https://klavora.store/">
             <div className="relative w-full aspect-[21/9] min-h-[180px] rounded-lg overflow-hidden">
               <img src="/klavora.png" alt="Klavora pharmacy inventory SaaS platform banner" loading="lazy" width={800} height={342} className="w-full h-full object-cover" />
             </div>
