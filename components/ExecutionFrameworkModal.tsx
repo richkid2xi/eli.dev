@@ -49,14 +49,19 @@ export default function ExecutionFrameworkModal({
       setTimeout(scrollToProjects, 280);
       setTimeout(scrollToProjects, 420);
     } else if (target === 'contact') {
-      setTimeout(() => {
+      const openContactCard = () => {
         if (typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('open-contact-card'));
           if (window.location.hash !== '#contact') {
             window.history.pushState(null, '', '#contact');
           }
+          window.dispatchEvent(new HashChangeEvent('hashchange'));
         }
-      }, 280);
+      };
+
+      openContactCard();
+      setTimeout(openContactCard, 60);
+      setTimeout(openContactCard, 200);
     }
   };
 

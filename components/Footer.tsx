@@ -19,9 +19,11 @@ export default function Footer() {
 
     handleHash();
     window.addEventListener('hashchange', handleHash);
+    window.addEventListener('popstate', handleHash);
     window.addEventListener('open-contact-card', handleOpenContactCard);
     return () => {
       window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('popstate', handleHash);
       window.removeEventListener('open-contact-card', handleOpenContactCard);
     };
   }, []);

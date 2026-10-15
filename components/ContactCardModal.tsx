@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export interface ContactCardModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 interface ContactItem {
@@ -19,15 +20,64 @@ interface ContactItem {
   isExternal?: boolean;
 }
 
-export default function ContactCardModal({ isOpen, onClose }: ContactCardModalProps) {
+export default function ContactCardModal({
+  isOpen: controlledIsOpen,
+  onClose: controlledOnClose,
+}: ContactCardModalProps = {}) {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  const isControlled = controlledIsOpen !== undefined;
+  const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleClose = () => {
+    if (isControlled && controlledOnClose) {
+      controlledOnClose();
+    }
+    setInternalIsOpen(false);
+    if (typeof window !== 'undefined' && window.location.hash.toLowerCase() === '#contact') {
+      window.history.pushState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      );
+    }
+  };
+
+  // Global listeners for open-contact-card event and #contact hash
+  useEffect(() => {
+    const handleOpen = () => {
+      setInternalIsOpen(true);
+    };
+
+    const handleHash = () => {
+      if (typeof window !== 'undefined' && window.location.hash.toLowerCase() === '#contact') {
+        setInternalIsOpen(true);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('open-contact-card', handleOpen);
+    window.addEventListener('hashchange', handleHash);
+    window.addEventListener('popstate', handleHash);
+    return () => {
+      window.removeEventListener('open-contact-card', handleOpen);
+      window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('popstate', handleHash);
+    };
+  }, []);
 
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     };
 
@@ -35,7 +85,7 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   // Lock body scroll while open
   useEffect(() => {
@@ -130,7 +180,9 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
     },
   ];
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div
@@ -145,7 +197,7 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.12, ease: 'easeOut' }}
-            onClick={onClose}
+            onClick={handleClose}
             className="fixed inset-0 bg-black/75 sm:bg-black/60 sm:backdrop-blur-md"
             aria-hidden="true"
           />
@@ -259,7 +311,7 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
             <button
               ref={closeButtonRef}
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               aria-label="Close complimentary card"
               className="absolute top-3.5 right-3.5 z-20 w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 text-gray-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
             >
@@ -375,6 +427,7 @@ export default function ContactCardModal({ isOpen, onClose }: ContactCardModalPr
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
