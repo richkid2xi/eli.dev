@@ -262,7 +262,7 @@ export function generateOgImageResponse() {
               textTransform: 'uppercase',
             }}
           >
-            elikem.dev
+            ELI.DEV
           </div>
         </div>
       </div>

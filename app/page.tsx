@@ -39,7 +39,7 @@ export default function Home() {
         jobTitle: 'Technical Project Manager',
         url: siteUrl,
         description:
-          'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
+          'Elikem Amenorpe, technical project manager & engineer in Accra, Ghana. Case studies on Klavora, Verdis, Beam & more.',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Accra',

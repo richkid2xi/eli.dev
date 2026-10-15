@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: '%s | Richard Elikem Amenorpe',
   },
   description:
-    'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
+    'Elikem Amenorpe, technical project manager & engineer in Accra, Ghana. Case studies on Klavora, Verdis, Beam & more.',
   keywords: [
     'Richard Elikem Amenorpe',
     'Richard Elikem',
@@ -66,13 +66,13 @@ export const metadata: Metadata = {
     siteName: 'Richard Elikem Amenorpe',
     title: 'Richard Elikem Amenorpe | Technical Project Manager',
     description:
-      'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
+      'Elikem Amenorpe, technical project manager & engineer in Accra, Ghana. Case studies on Klavora, Verdis, Beam & more.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Richard Elikem Amenorpe | Technical Project Manager',
     description:
-      'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
+      'Elikem Amenorpe, technical project manager & engineer in Accra, Ghana. Case studies on Klavora, Verdis, Beam & more.',
   },
   icons: {
     icon: [
