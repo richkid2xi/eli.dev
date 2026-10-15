@@ -35,7 +35,7 @@ export default function Footer() {
       </div>
       <div className="flex proggy justify-center pb-8 z-50 relative mt-16 md:mt-[144px]">
         <p className="text-shade">
-          Built by Elikem. EliTech CreaTives Limited. 2026
+          &copy; {new Date().getFullYear()} Richard Elikem Amenorpe
         </p>
       </div>
 

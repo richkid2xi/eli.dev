@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef } from 'react';
 import { SiReact, SiVite, SiTypescript, SiTailwindcss, SiNodedotjs, SiExpress, SiPrisma, SiPostgresql, SiSupabase, SiNextdotjs, SiNestjs } from 'react-icons/si';
+import ExecutionFrameworkModal from './ExecutionFrameworkModal';
 
 type TimeOfDay = 'morning' | 'afternoon' | 'evening';
 
@@ -59,9 +59,21 @@ export default function HeroSection() {
   const [displayed, setDisplayed] = useState('');
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
+  const [isFrameworkOpen, setIsFrameworkOpen] = useState(false);
+  const frameworkButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setTimeOfDay(getTimeOfDay());
+
+    // Check if URL specifies #framework or listen to custom events
+    if (typeof window !== 'undefined') {
+      if (window.location.hash === '#framework') {
+        setIsFrameworkOpen(true);
+      }
+      const handleOpen = () => setIsFrameworkOpen(true);
+      window.addEventListener('open-execution-framework', handleOpen);
+      return () => window.removeEventListener('open-execution-framework', handleOpen);
+    }
   }, []);
 
   const phrases = greetings[timeOfDay];
@@ -94,6 +106,14 @@ export default function HeroSection() {
     return () => clearTimeout(timeout);
   }, [charIndex, deleting, currentPhrase, phrases.length]);
 
+  const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const el = document.getElementById('projects');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       {/* Background Gradient Blob behind the text */}
@@ -111,24 +131,52 @@ export default function HeroSection() {
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary animate-text-gradient bg-[length:200%_auto]">
                 Richard Elikem.
               </span>
+              <span className="sr-only"> Amenorpe</span>
             </h1>
-            <h2 className="text-4xl md:text-6xl font-bold text-shade">a builder.</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-bold text-shade tracking-tight leading-[1.25] mt-1 max-w-4xl">
+              I bridge the gap between{' '}
+              <span className="text-bright">product strategy</span>,{' '}
+              <span className="text-bright">technical architecture</span>, and{' '}
+              <span className="text-bright">rapid execution</span>.
+            </h2>
           </div>
-          <h6 className="max-w-[901px] leading-relaxed text-gray-400">
-            Software Engineering student and founder building for African markets with global scaling potential. I care about shipping fast, solving actual problems, and getting from idea to working product without losing momentum along the way. What I've realized building solo is that I'm drawn less to the code itself and more to the process behind it, scoping the right thing, sequencing the work, keeping a build on track from first idea to launch. Founder instincts, project-manager brain.
-          </h6>
-          <div className="pt-4">
-            <Link href="/path">
-              <button className="proggy group text-bright rounded border border-bright hover:bg-gray-500 hover:bg-opacity-25 duration-500 transition ease-in-out px-10 py-2 flex items-center">
-                View The Path{' '}
-                <span className="inline-block text-xl ml-2 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">
-                  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path d="M6 6v2h8.59L5 17.59 6.41 19 16 9.41V18h2V6z"></path>
-                  </svg>
-                </span>
-              </button>
-            </Link>
+          <p className="max-w-[850px] leading-relaxed text-gray-400 text-base md:text-lg">
+            Software engineer turned technical project manager. I take products from user research to production, built for African markets with global potential.
+          </p>
+          <div>
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/[0.04] text-zinc-300 text-xs font-mono border border-white/10">
+              Open to TPM &amp; Solutions Engineering roles
+            </span>
+          </div>
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <a
+              href="#projects"
+              onClick={handleScrollToProjects}
+              className="proggy group relative px-7 py-3 rounded border border-primary/60 bg-gradient-to-r from-primary/15 via-fuchsia-500/10 to-secondary/20 hover:from-primary/25 hover:to-secondary/30 text-bright font-medium transition-all duration-300 shadow-[0_0_20px_rgba(237,30,121,0.2)] hover:shadow-[0_0_30px_rgba(237,30,121,0.4)] hover:border-primary flex items-center justify-center gap-2.5 text-sm md:text-base cursor-pointer"
+            >
+              <span>View Technical Case Studies</span>
+              <span className="inline-block transition-transform duration-300 group-hover:translate-y-1 text-primary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+              </span>
+            </a>
+            <button
+              type="button"
+              ref={frameworkButtonRef}
+              onClick={() => setIsFrameworkOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={isFrameworkOpen}
+              className="proggy group px-7 py-3 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2.5 text-sm md:text-base cursor-pointer"
+            >
+              <span>View My Execution Framework</span>
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 text-gray-400 group-hover:text-bright">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                </svg>
+              </span>
+            </button>
           </div>
           <div className="proggy pt-8 overflow-hidden relative w-full h-16 flex items-center">
              <div className="flex animate-[scroll_40s_linear_infinite] w-max">
@@ -192,6 +240,12 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      <ExecutionFrameworkModal
+        isOpen={isFrameworkOpen}
+        onClose={() => setIsFrameworkOpen(false)}
+        triggerRef={frameworkButtonRef}
+      />
     </>
   );
 }

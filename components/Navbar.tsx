@@ -1,8 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -14,33 +12,79 @@ const scrollTo = (id: string) => {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const controls = useAnimation();
+  const navRef = useRef<HTMLElement | null>(null);
 
+  // IntersectionObserver on a 60px top sentinel to drive desktop hero merge vs scrolled floating pill
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-        if (isScrolled) {
-          if (window.innerWidth >= 768) {
-            // Trigger the falling and catching animation on desktop
-            controls.start({
-              y: [0, 60, -10, 0],
-              transition: { duration: 0.7, times: [0, 0.4, 0.7, 1], ease: "easeInOut" }
-            });
-          } else {
-            // No drop animation on mobile
-            controls.start({ y: 0, transition: { duration: 0.3 } });
-          }
-        } else {
-          // Reset position when at the top
-          controls.start({ y: 0, transition: { duration: 0.3 } });
-        }
+    const sentinel = document.createElement('div');
+    sentinel.setAttribute('data-nav-sentinel', 'true');
+    sentinel.style.position = 'absolute';
+    sentinel.style.top = '0';
+    sentinel.style.left = '0';
+    sentinel.style.height = '60px';
+    sentinel.style.width = '1px';
+    sentinel.style.pointerEvents = 'none';
+    sentinel.style.opacity = '0';
+    sentinel.style.zIndex = '-999';
+    document.body.prepend(sentinel);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // When at top (< 60px), entry.isIntersecting is true -> scrolled is false (merges with hero)
+        // When scrolled down (> 60px), entry.isIntersecting is false -> scrolled is true (floating pill banner)
+        setScrolled(!entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+      }
+    );
+
+    observer.observe(sentinel);
+
+    return () => {
+      observer.disconnect();
+      sentinel.remove();
+    };
+  }, []);
+
+  // Ignore resize events that only change height on touch devices (e.g. mobile URL bar collapsing)
+  useEffect(() => {
+    let prevWidth = window.innerWidth;
+    const handleResize = () => {
+      const newWidth = window.innerWidth;
+      if (newWidth === prevWidth) return;
+      prevWidth = newWidth;
+      if (newWidth >= 1024) {
+        setOpen(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled, controls]);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // iOS-safe body scroll lock when mobile hamburger menu is open
+  useEffect(() => {
+    if (!open) return;
+
+    const scrollY = window.scrollY;
+    const originalPosition = document.body.style.position;
+    const originalTop = document.body.style.top;
+    const originalWidth = document.body.style.width;
+    const originalOverflow = document.body.style.overflow;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.position = originalPosition;
+      document.body.style.top = originalTop;
+      document.body.style.width = originalWidth;
+      document.body.style.overflow = originalOverflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, [open]);
 
   const handleNav = (id: string) => {
     setOpen(false);
@@ -48,83 +92,209 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`sticky top-2 md:top-4 z-[60] transition-all duration-300 ease-in-out ${scrolled ? 'py-0' : 'md:pt-[26px] md:pb-4 pt-2 pb-2'}`}>
-      <motion.div animate={controls} className="relative mx-auto w-full">
-        <div className={`relative transition-all duration-300 ease-in-out border ${scrolled ? 'bg-black/50 backdrop-blur-lg border-white/10 rounded-2xl md:rounded-full px-4 md:px-6 py-2 md:py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]' : 'bg-transparent border-transparent px-4 md:px-0 py-2 md:py-0'}`}>
-        
-        {/* Left Hanging Wire */}
-        <div className={`absolute left-12 bottom-[calc(100%-4px)] hidden md:flex flex-col items-center transition-opacity duration-500 delay-300 pointer-events-none ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="w-[2px] h-[100vh] bg-gradient-to-b from-transparent via-white/10 to-white/40" />
-          <div className="w-2 h-2 rounded-full border-[1.5px] border-white/50 -mt-[1px] z-10" />
-        </div>
+    <>
+      <nav
+        ref={navRef}
+        aria-label="Main navigation"
+        className="fixed top-0 left-0 right-0 z-[60] h-[calc(56px+env(safe-area-inset-top,0px))] pt-[env(safe-area-inset-top,0px)] bg-[#0A0A0C] border-b border-white/[0.08] lg:relative lg:h-auto lg:bg-transparent lg:border-transparent lg:sticky lg:top-2.5 lg:pt-2 lg:pb-2 transition-colors duration-300"
+      >
+        <div className="relative mx-auto w-full h-full flex items-center lg:block">
+          <div
+            className={`relative transition-colors duration-300 border w-full h-full flex items-center lg:block ${
+              scrolled
+                ? 'lg:bg-black/50 lg:backdrop-blur-lg lg:border-white/10 lg:rounded-full lg:px-6 lg:py-3 lg:shadow-[0_4px_30px_rgba(0,0,0,0.1)] lg:animate-[navbarDropAndCatch_750ms_cubic-bezier(0.22,1,0.36,1)] bg-transparent border-transparent px-4 py-0'
+                : 'bg-transparent border-transparent px-4 lg:px-6 py-0 lg:py-3'
+            }`}
+          >
+            {/* Left Hanging Wire (Desktop only, calibrated tension cable with ceiling mount) */}
+            <div
+              className={`absolute left-12 bottom-[calc(100%-4px)] hidden lg:flex flex-col items-center pointer-events-none ${
+                scrolled
+                  ? 'opacity-100 lg:animate-[cableSnapLeft_750ms_cubic-bezier(0.22,1,0.36,1)]'
+                  : 'opacity-0'
+              }`}
+            >
+              {/* Ceiling anchor bracket */}
+              <div className="w-1.5 h-1.5 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              {/* Tension wire */}
+              <div className="w-[1.5px] h-8 bg-gradient-to-b from-white/70 via-white/30 to-white/70 shadow-[0_0_6px_rgba(255,255,255,0.3)]" />
+              {/* Eyelet anchor on navbar */}
+              <div className="w-2.5 h-2.5 rounded-full border-[1.5px] border-white/70 bg-[#0A0A0C] -mt-[1px] z-10 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+            </div>
 
-        {/* Right Hanging Wire */}
-        <div className={`absolute right-12 bottom-[calc(100%-4px)] hidden md:flex flex-col items-center transition-opacity duration-500 delay-300 pointer-events-none ${scrolled ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="w-[2px] h-[100vh] bg-gradient-to-b from-transparent via-white/10 to-white/40" />
-          <div className="w-2 h-2 rounded-full border-[1.5px] border-white/50 -mt-[1px] z-10" />
-        </div>
+            {/* Right Hanging Wire (Desktop only, calibrated tension cable with ceiling mount) */}
+            <div
+              className={`absolute right-12 bottom-[calc(100%-4px)] hidden lg:flex flex-col items-center pointer-events-none ${
+                scrolled
+                  ? 'opacity-100 lg:animate-[cableSnapRight_750ms_cubic-bezier(0.22,1,0.36,1)]'
+                  : 'opacity-0'
+              }`}
+            >
+              {/* Ceiling anchor bracket */}
+              <div className="w-1.5 h-1.5 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              {/* Tension wire */}
+              <div className="w-[1.5px] h-8 bg-gradient-to-b from-white/70 via-white/30 to-white/70 shadow-[0_0_6px_rgba(255,255,255,0.3)]" />
+              {/* Eyelet anchor on navbar */}
+              <div className="w-2.5 h-2.5 rounded-full border-[1.5px] border-white/70 bg-[#0A0A0C] -mt-[1px] z-10 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+            </div>
 
-        {/* Desktop nav */}
-      <div className="proggy text-lg hidden md:block">
-        <ul className="flex justify-between">
-          <li className="menu-link">
-            <Link className="hover:opacity-80 py-2 px-1 inline-block" href="/path">The Path</Link>
+            {/* Desktop Navigation Links (>= lg / 1024px) */}
+            <div className="proggy text-lg hidden lg:block">
+              <ul className="flex justify-between">
+                <li className="menu-link">
+                  <a
+                    className="hover:opacity-80 py-2 px-1 inline-block cursor-pointer"
+                    href="/#path"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (typeof window !== 'undefined') {
+                        if (window.location.hash !== '#path') {
+                          window.history.pushState(null, '', '#path');
+                        }
+                        window.dispatchEvent(new HashChangeEvent('hashchange'));
+                      }
+                    }}
+                  >
+                    The Path
+                  </a>
+                </li>
+                <li className="menu-link">
+                  <button
+                    className="hover:opacity-80 py-2 px-1 cursor-pointer"
+                    onClick={() => handleNav('experience')}
+                  >
+                    Experience
+                  </button>
+                </li>
+                <li className="menu-link">
+                  <button
+                    className="hover:opacity-80 py-2 px-1 cursor-pointer"
+                    onClick={() => handleNav('projects')}
+                  >
+                    Projects
+                  </button>
+                </li>
+                <li className="menu-link">
+                  <button
+                    className="hover:opacity-80 py-2 px-1 cursor-pointer"
+                    onClick={() => handleNav('contact')}
+                  >
+                    Contact
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Mobile Header Bar (< lg / 1024px) */}
+            <div className="lg:hidden flex items-center justify-between w-full h-full">
+              <span className="font-bold text-xl tracking-tight">
+                <span className="text-white">eli</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                  .
+                </span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary">
+                  dev
+                </span>
+              </span>
+              <button
+                type="button"
+                aria-label="Toggle menu"
+                aria-expanded={open}
+                onClick={() => setOpen(!open)}
+                className="text-white p-2 focus:outline-none cursor-pointer"
+              >
+                {open ? (
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Dropdown Panel: Animates with transform/opacity ONLY, never moves or resizes nav */}
+      <div
+        className={`lg:hidden fixed left-0 right-0 top-[calc(56px+env(safe-area-inset-top,0px))] bg-[#0A0A0C] border-b border-x border-gray-800 rounded-b-xl shadow-2xl z-50 overflow-hidden transition-[transform,opacity] duration-200 ease-out ${
+          open
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-2 pointer-events-none'
+        }`}
+      >
+        <ul className="proggy flex flex-col divide-y divide-gray-800">
+          <li>
+            <a
+              href="/#path"
+              onClick={(e) => {
+                e.preventDefault();
+                setOpen(false);
+                if (typeof window !== 'undefined') {
+                  if (window.location.hash !== '#path') {
+                    window.history.pushState(null, '', '#path');
+                  }
+                  window.dispatchEvent(new HashChangeEvent('hashchange'));
+                }
+              }}
+              className="block px-6 py-4 text-lg hover:bg-gray-900 transition cursor-pointer"
+            >
+              The Path
+            </a>
           </li>
-          <li className="menu-link">
-            <button className="hover:opacity-80 py-2 px-1" onClick={() => handleNav('experience')}>Experience</button>
+          <li>
+            <button
+              type="button"
+              onClick={() => handleNav('experience')}
+              className="w-full text-left px-6 py-4 text-lg hover:bg-gray-900 transition cursor-pointer"
+            >
+              Experience
+            </button>
           </li>
-          <li className="menu-link">
-            <button className="hover:opacity-80 py-2 px-1" onClick={() => handleNav('projects')}>Projects</button>
+          <li>
+            <button
+              type="button"
+              onClick={() => handleNav('projects')}
+              className="w-full text-left px-6 py-4 text-lg hover:bg-gray-900 transition cursor-pointer"
+            >
+              Projects
+            </button>
           </li>
-          <li className="menu-link">
-            <button className="hover:opacity-80 py-2 px-1" onClick={() => handleNav('contact')}>Contact</button>
+          <li>
+            <button
+              type="button"
+              onClick={() => handleNav('contact')}
+              className="w-full text-left px-6 py-4 text-lg hover:bg-gray-900 transition cursor-pointer"
+            >
+              Contact
+            </button>
           </li>
         </ul>
       </div>
-
-      {/* Mobile nav */}
-      <div className="md:hidden flex items-center justify-between">
-        <span className="font-bold text-xl tracking-tight">
-          <span className="text-white">eli</span><span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">.</span><span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary">dev</span>
-        </span>
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen(!open)}
-          className="text-white p-2 focus:outline-none"
-        >
-          {open ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          )}
-        </button>
-      </div>
-
-      {/* Mobile dropdown */}
-      {open && (
-        <div className="md:hidden absolute left-0 right-0 top-full bg-black/95 backdrop-blur-md border border-gray-800 rounded-xl mt-2 z-50 overflow-hidden">
-          <ul className="proggy flex flex-col divide-y divide-gray-800">
-            <li>
-              <Link href="/path" onClick={() => setOpen(false)} className="block px-6 py-4 text-lg hover:bg-gray-900 transition">The Path</Link>
-            </li>
-            <li>
-              <button onClick={() => handleNav('experience')} className="w-full text-left px-6 py-4 text-lg hover:bg-gray-900 transition">Experience</button>
-            </li>
-            <li>
-              <button onClick={() => handleNav('projects')} className="w-full text-left px-6 py-4 text-lg hover:bg-gray-900 transition">Projects</button>
-            </li>
-            <li>
-              <button onClick={() => handleNav('contact')} className="w-full text-left px-6 py-4 text-lg hover:bg-gray-900 transition">Contact</button>
-            </li>
-          </ul>
-        </div>
-      )}
-        </div>
-      </motion.div>
-    </nav>
+    </>
   );
 }

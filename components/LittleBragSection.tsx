@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function LittleBragSection() {
   return (
     <>
@@ -5,25 +7,46 @@ export default function LittleBragSection() {
         <div className="mb-10 md:mb-14 border-b pb-6 border-gray-700 border-dotted">
           <h2 className="text-2xl md:text-4xl font-bold leading-relaxed">Little Brag...</h2>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-6 lg:gap-x-16 items-start">
+          {/* Left Column: Story Copy */}
           <div className="text-shade">
-            <div style={{ opacity: 1, transform: 'none' }}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-bright text-xl md:text-2xl font-medium">I built a pharmacy SaaS from zero to paying pharmacies</h3>
+            <h3 className="text-bright text-xl md:text-2xl font-medium mb-4">
+              I built a pharmacy SaaS that keeps selling when the internet doesn&apos;t
+            </h3>
+
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-bright text-lg font-medium mb-2">The Challenge</h4>
+                <p className="leading-relaxed">
+                  Ghanaian pharmacies were managing inventory, expiry tracking, and point-of-sale on paper or spreadsheets. No visibility into stock levels, no low-stock or expiry alerts, and no reliable way to catch expired drugs before they reached a customer. It&apos;s also very easy to lose an entire afternoon to a spreadsheet named &quot;final_final_v2.&quot;
+                </p>
               </div>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-bright text-lg font-medium mb-2">The Challenge</h4>
-                  <p className="leading-relaxed">Ghanaian pharmacies were managing inventory, expiry tracking, and point-of-sale on paper or spreadsheets. No visibility into stock levels, no low-stock or expiry alerts, and no reliable way to catch expired drugs before they reached a customer. Also very easy to lose an entire afternoon to a spreadsheet named "final_final_v2."</p>
-                </div>
-                <div>
-                  <h4 className="text-bright text-lg font-medium mb-2">The Solution</h4>
-                  <p className="leading-relaxed">I built Klavora, an offline-capable pharmacy inventory management SaaS. The real challenge was making offline and online mode actually cooperate. Internet in a lot of these pharmacies is more of a suggestion than a guarantee, so I built a PWA with IndexedDB sync that lets a pharmacy keep selling with zero connection, then quietly reconciles everything the moment the internet remembers it exists. No lost sales, no duplicates, no drama. On top of that, I built FEFO batch tracking, a controlled substances register, multi-drug basket POS, bulk CSV import, and WhatsApp-based low-stock/expiry alerts via Termii. I also handled Paystack webhook integration, subscription and grace-period billing logic, and load testing with k6, and I'm now doing direct cold outreach to Ghanaian pharmacies to turn the product into actual paying customers.</p>
+
+              <div>
+                <h4 className="text-bright text-lg font-medium mb-2">The Solution</h4>
+                <div className="space-y-4">
+                  <p className="leading-relaxed">
+                    I built Klavora, an offline-capable pharmacy inventory management SaaS, and I own it end to end: product scoping, architecture, build, billing, and go-to-market.
+                  </p>
+                  <p className="leading-relaxed">
+                    The hardest part was making offline and online mode actually cooperate. Internet in many pharmacies is more of a suggestion than a guarantee, so I built a PWA with IndexedDB sync that lets a pharmacy keep selling with zero connection, then reconciles everything when the connection returns. The design goal: no lost sales, no duplicates, no drama.
+                  </p>
+                  <p className="leading-relaxed">
+                    On top of that: FEFO batch tracking so the earliest-expiring stock sells first, a controlled substances register, multi-drug basket POS, bulk CSV import for onboarding, and WhatsApp low-stock and expiry alerts via Termii. I also built Paystack webhook integration, subscription and grace-period billing, and load-tested the backend with k6.
+                  </p>
+                  <p className="leading-relaxed">
+                    I made one deliberate product call: an expired subscription doesn&apos;t lock a pharmacy out mid-shift. It flags them for a personal follow-up instead, because in this market relationships close deals, not lockouts.
+                  </p>
+                  <p className="leading-relaxed">
+                    Now I&apos;m doing direct outreach to Ghanaian pharmacies to put working software into daily use.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-center">
+
+          {/* Right Column: Sticky Pills Card on Desktop, 24px spacing on Mobile */}
+          <div className="lg:sticky lg:top-[120px] lg:self-start">
             <div className="card-wrapper p-[1px] w-full" style={{ opacity: 1, transform: 'none' }}>
               <div className="card-content h-full w-full bg-[#0a0a0a] p-6 space-y-4 rounded-[15px]">
                 <div className="flex items-center space-x-3" style={{ opacity: 1, transform: 'none' }}>

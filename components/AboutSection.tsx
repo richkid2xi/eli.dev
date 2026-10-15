@@ -9,19 +9,22 @@ export default function AboutSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         <div className="text-shade flex flex-col space-y-6 text-sm md:text-base">
           <p className="leading-relaxed">
-            Hi! My name is Elikem, I'm a final-year Software Engineering student and founder building real products for African markets with global scaling potential.
+            I&apos;m Elikem, a software engineer turning toward technical project management. I take problems from user research to production: I write the PRD, make the architecture calls, direct the build, and test it against real-world conditions like unreliable internet and low-end phones.
           </p>
           <p className="leading-relaxed">
-            I'm a strong problem solver and self-directed builder. Over the past few years, I've founded <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary animate-text-gradient bg-[length:200%_auto] font-medium">EliTech CreaTives Limited</span>, working with collaborators like Bright and Andy across a portfolio of ventures, actively shipping products and engaging with Ghana's tech ecosystem to drive real outcomes. I've also led <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary animate-text-gradient bg-[length:200%_auto] font-medium">Klavora</span>, a pharmacy inventory management SaaS, from concept to live paying pharmacy customers, handling everything from backend reliability to direct outreach. I'm passionate about leveraging technology to build impactful, self-sustaining businesses.
+            I&apos;ve built Klavora, an offline-first pharmacy inventory SaaS, along with a climate advisory platform for smallholder farmers, a phone-to-browser screen-casting app, and a headless commerce store. I use AI agents across the whole development lifecycle, always behind a review gate, to move faster without lowering the standard.
           </p>
           <p className="leading-relaxed">
-            I thrive in dynamic, high-ownership environments where I can apply my skills to solve real problems and drive meaningful outcomes.
+            I work best in high-ownership teams where scoping, sequencing, and follow-through decide whether a product ships. Open to Technical Project Management and Solutions Engineering roles.
           </p>
+          <div className="pt-2 text-xs sm:text-sm text-shade/70 leading-relaxed">
+            BSc Software Engineering, GCTU (expected 2027) · Google IT Support · Google UX Design · ALX Prompt Engineering · Based in Accra, Ghana
+          </div>
         </div>
         <div className="group flex justify-center lg:justify-end">
           <div className="w-full max-w-[350px] h-[420px] sm:h-[450px] border border-shade/30 rounded p-4 group-hover:transform group-hover:scale-105 transition-all ease duration-300 cursor-pointer">
              <div className="w-full h-full grayscale group-hover:grayscale-0 rounded overflow-hidden relative transition-all duration-300">
-               <img src="/Profile.png" alt="Richard Elikem" className="w-full h-full object-cover object-top translate-y-6 scale-[1.1]" />
+               <img src="/Profile.png" alt="Richard Elikem Amenorpe - Technical Project Manager and Software Engineer" loading="lazy" width={350} height={420} className="w-full h-full object-cover object-top translate-y-6 scale-[1.1]" />
              </div>
           </div>
         </div>

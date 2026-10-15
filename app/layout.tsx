@@ -1,7 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import AstralCanvas from '../components/AstralCanvas';
+import { getSiteUrl } from '../lib/siteUrl';
 
 // Single primary display font — no Manrope preload waste
 const spaceGrotesk = Space_Grotesk({
@@ -16,37 +18,36 @@ const proggy = localFont({
   display: 'swap',
 });
 
-const siteUrl = 'https://elidex.vercel.app'; // update when deployed
+const siteUrl = getSiteUrl();
 
-export const viewport = {
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  themeColor: '#0A0A0C',
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Richard Elikem | Software Engineer & Tech PM',
-    template: '%s | Richard Elikem',
+    default: 'Richard Elikem Amenorpe | Technical Project Manager',
+    template: '%s | Richard Elikem Amenorpe',
   },
   description:
-    'Software Engineer & Technical Project Manager building scalable SaaS products for African markets. Creator of Klavora & Verdis.',
+    'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
   keywords: [
-    'Richard Elikem',
     'Richard Elikem Amenorpe',
-    'Technical Project Manager',
-    'Software Engineer Ghana',
-    'SaaS founder Africa',
-    'Klavora',
-    'Verdis',
-    'NameCheckGH',
-    'React Developer',
-    'Next.js Developer',
+    'Richard Elikem',
+    'Elikem Amenorpe',
+    'Richard Amenorpe',
+    'technical project manager Ghana',
+    'software engineer Accra',
+    'solutions engineer Ghana',
+    'portfolio',
   ],
   authors: [{ name: 'Richard Elikem Amenorpe', url: siteUrl }],
   creator: 'Richard Elikem Amenorpe',
-  publisher: 'EliTech CreaTives Limited',
+  publisher: 'Richard Elikem Amenorpe',
   robots: {
     index: true,
     follow: true,
@@ -60,34 +61,30 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_GH',
     url: siteUrl,
-    siteName: 'Richard Elikem — Portfolio',
-    title: 'Richard Elikem | Software Engineer & Tech PM',
+    siteName: 'Richard Elikem Amenorpe',
+    title: 'Richard Elikem Amenorpe | Technical Project Manager',
     description:
-      'Software Engineer & Technical Project Manager building scalable SaaS products for African markets.',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Richard Elikem Amenorpe — Portfolio',
-      },
-    ],
+      'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Richard Elikem | Software Engineer & Tech PM',
+    title: 'Richard Elikem Amenorpe | Technical Project Manager',
     description:
-      'Software Engineer & Technical Project Manager building scalable SaaS products for African markets.',
-    images: ['/og-image.jpg'],
+      'Elikem Amenorpe, software engineer turned technical project manager in Accra, Ghana. Case studies on Klavora, Verdis, Beam and more.',
+  },
+  icons: {
+    icon: [
+      { url: '/icon', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon', sizes: '180x180', type: 'image/png' },
+    ],
   },
   alternates: {
     canonical: '/',
-    languages: {
-      'en': '/',
-      'en-US': '/en-US',
-    },
   },
   verification: {
     google: 'CjrTi8yZVYAp1URq9r94HX-8er7LIIlYrDay-KfJ9Go',
@@ -105,6 +102,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${proggy.variable} antialiased`}
         suppressHydrationWarning
       >
+        <AstralCanvas />
         {children}
       </body>
     </html>

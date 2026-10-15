@@ -1,15 +1,18 @@
 import { MetadataRoute } from 'next';
+import { getSiteUrl } from '../lib/siteUrl';
 
 export default function robots(): MetadataRoute.Robots {
+  const siteUrl = getSiteUrl();
+
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/api/'],
       },
     ],
-    sitemap: 'https://elidex.vercel.app/sitemap.xml',
-    host: 'https://elidex.vercel.app',
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }
