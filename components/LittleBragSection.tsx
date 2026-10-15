@@ -47,26 +47,26 @@ export default function LittleBragSection() {
 
           {/* Right Column: Sticky Pills Card on Desktop, 24px spacing on Mobile */}
           <div className="lg:sticky lg:top-[120px] lg:self-start">
-            <div className="card-wrapper p-[1px] w-full" style={{ opacity: 1, transform: 'none' }}>
-              <div className="card-content h-full w-full bg-[#0a0a0a] p-6 space-y-4 rounded-[15px]">
-                <div className="flex items-center space-x-3" style={{ opacity: 1, transform: 'none' }}>
-                  <div className="w-3 h-3 rounded-full bg-primary" style={{ transform: 'none' }}></div>
+            <div className="card-wrapper w-full rounded-2xl overflow-hidden shadow-2xl">
+              <div className="card-content bg-[#0a0a0a] p-6 space-y-4 rounded-[14.5px]">
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-primary shrink-0"></div>
                   <span className="text-bright font-medium">Offline PWA with IndexedDB Sync</span>
                 </div>
-                <div className="flex items-center space-x-3" style={{ opacity: 1, transform: 'none' }}>
-                  <div className="w-3 h-3 rounded-full bg-secondary" style={{ transform: 'none' }}></div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-secondary shrink-0"></div>
                   <span className="text-bright font-medium">FEFO Batch & Expiry Management</span>
                 </div>
-                <div className="flex items-center space-x-3" style={{ opacity: 1, transform: 'none' }}>
-                  <div className="w-3 h-3 rounded-full bg-primary" style={{ transform: 'none' }}></div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-primary shrink-0"></div>
                   <span className="text-bright font-medium">WhatsApp Low-Stock Alerts</span>
                 </div>
-                <div className="flex items-center space-x-3" style={{ opacity: 1, transform: 'none' }}>
-                  <div className="w-3 h-3 rounded-full bg-secondary" style={{ transform: 'none' }}></div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-secondary shrink-0"></div>
                   <span className="text-bright font-medium">Paystack Billing Integration</span>
                 </div>
-                <div className="flex items-center space-x-3" style={{ opacity: 1, transform: 'none' }}>
-                  <div className="w-3 h-3 rounded-full bg-primary" style={{ transform: 'none' }}></div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-3 h-3 rounded-full bg-primary shrink-0"></div>
                   <span className="text-bright font-medium">Controlled Substances Register</span>
                 </div>
               </div>

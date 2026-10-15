@@ -96,44 +96,48 @@ export default function Navbar() {
       <nav
         ref={navRef}
         aria-label="Main navigation"
-        className="fixed top-0 left-0 right-0 z-[60] h-[calc(56px+env(safe-area-inset-top,0px))] pt-[env(safe-area-inset-top,0px)] bg-[#0A0A0C] border-b border-white/[0.08] lg:relative lg:h-auto lg:bg-transparent lg:border-transparent lg:sticky lg:top-2.5 lg:pt-2 lg:pb-2 transition-colors duration-300"
+        className={`fixed top-0 left-0 right-0 z-[60] h-[calc(56px+env(safe-area-inset-top,0px))] pt-[env(safe-area-inset-top,0px)] transition-all duration-300 lg:relative lg:h-auto lg:bg-transparent lg:border-transparent lg:sticky lg:top-2.5 lg:pt-2 lg:pb-2 ${
+          scrolled
+            ? 'bg-[#0A0A0C]/90 backdrop-blur-md border-b border-white/[0.08]'
+            : 'bg-transparent border-b border-transparent'
+        }`}
       >
         <div className="relative mx-auto w-full h-full flex items-center lg:block">
           <div
             className={`relative transition-colors duration-300 border w-full h-full flex items-center lg:block ${
               scrolled
-                ? 'lg:bg-black/50 lg:backdrop-blur-lg lg:border-white/10 lg:rounded-full lg:px-6 lg:py-3 lg:shadow-[0_4px_30px_rgba(0,0,0,0.1)] lg:animate-[navbarDropAndCatch_750ms_cubic-bezier(0.22,1,0.36,1)] bg-transparent border-transparent px-4 py-0'
+                ? 'lg:bg-black/50 lg:backdrop-blur-lg lg:border-white/10 lg:rounded-full lg:px-6 lg:py-3 lg:shadow-[0_4px_30px_rgba(0,0,0,0.1)] animate-[navbarDropAndCatch_750ms_cubic-bezier(0.22,1,0.36,1)] bg-transparent border-transparent px-4 py-0'
                 : 'bg-transparent border-transparent px-4 lg:px-6 py-0 lg:py-3'
             }`}
           >
-            {/* Left Hanging Wire (Desktop only, calibrated tension cable with ceiling mount) */}
+            {/* Left Hanging Wire (Calibrated tension cable with ceiling mount) */}
             <div
-              className={`absolute left-12 bottom-[calc(100%-4px)] hidden lg:flex flex-col items-center pointer-events-none ${
+              className={`absolute left-4 sm:left-6 lg:left-12 bottom-[calc(100%-4px)] flex flex-col items-center pointer-events-none ${
                 scrolled
-                  ? 'opacity-100 lg:animate-[cableSnapLeft_750ms_cubic-bezier(0.22,1,0.36,1)]'
+                  ? 'opacity-100 animate-[cableSnapLeft_750ms_cubic-bezier(0.22,1,0.36,1)]'
                   : 'opacity-0'
               }`}
             >
               {/* Ceiling anchor bracket */}
               <div className="w-1.5 h-1.5 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
               {/* Tension wire */}
-              <div className="w-[1.5px] h-8 bg-gradient-to-b from-white/70 via-white/30 to-white/70 shadow-[0_0_6px_rgba(255,255,255,0.3)]" />
+              <div className="w-[1.5px] h-7 lg:h-8 bg-gradient-to-b from-white/70 via-white/30 to-white/70 shadow-[0_0_6px_rgba(255,255,255,0.3)]" />
               {/* Eyelet anchor on navbar */}
               <div className="w-2.5 h-2.5 rounded-full border-[1.5px] border-white/70 bg-[#0A0A0C] -mt-[1px] z-10 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
             </div>
 
-            {/* Right Hanging Wire (Desktop only, calibrated tension cable with ceiling mount) */}
+            {/* Right Hanging Wire (Calibrated tension cable with ceiling mount) */}
             <div
-              className={`absolute right-12 bottom-[calc(100%-4px)] hidden lg:flex flex-col items-center pointer-events-none ${
+              className={`absolute right-14 sm:right-16 lg:right-12 bottom-[calc(100%-4px)] flex flex-col items-center pointer-events-none ${
                 scrolled
-                  ? 'opacity-100 lg:animate-[cableSnapRight_750ms_cubic-bezier(0.22,1,0.36,1)]'
+                  ? 'opacity-100 animate-[cableSnapRight_750ms_cubic-bezier(0.22,1,0.36,1)]'
                   : 'opacity-0'
               }`}
             >
               {/* Ceiling anchor bracket */}
               <div className="w-1.5 h-1.5 rounded-full bg-white/70 shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
               {/* Tension wire */}
-              <div className="w-[1.5px] h-8 bg-gradient-to-b from-white/70 via-white/30 to-white/70 shadow-[0_0_6px_rgba(255,255,255,0.3)]" />
+              <div className="w-[1.5px] h-7 lg:h-8 bg-gradient-to-b from-white/70 via-white/30 to-white/70 shadow-[0_0_6px_rgba(255,255,255,0.3)]" />
               {/* Eyelet anchor on navbar */}
               <div className="w-2.5 h-2.5 rounded-full border-[1.5px] border-white/70 bg-[#0A0A0C] -mt-[1px] z-10 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
             </div>
