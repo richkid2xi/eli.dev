@@ -28,15 +28,36 @@ export default function ExecutionFrameworkModal({
     },
   ];
 
-  // Close & smooth scroll to page target (Projects or Contact)
-  const handleClosingCta = (targetId: 'projects' | 'contact') => {
+  // Close canvas & smooth scroll to page target (Projects or Contact card)
+  const handleClosingCta = (target: 'projects' | 'contact') => {
     onClose();
-    setTimeout(() => {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 150);
+
+    if (target === 'projects') {
+      const scrollToProjects = () => {
+        const el =
+          document.getElementById('case-study-klavora') ||
+          document.getElementById('projects');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (typeof window !== 'undefined' && window.location.hash !== '#projects') {
+          window.history.pushState(null, '', '#projects');
+        }
+      };
+
+      // Wait until ModalCanvasShell close animation and unlockBodyScroll (up to 240ms) complete
+      setTimeout(scrollToProjects, 280);
+      setTimeout(scrollToProjects, 420);
+    } else if (target === 'contact') {
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('open-contact-card'));
+          if (window.location.hash !== '#contact') {
+            window.history.pushState(null, '', '#contact');
+          }
+        }
+      }, 280);
+    }
   };
 
   return (

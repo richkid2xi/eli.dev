@@ -13,9 +13,17 @@ export default function Footer() {
       }
     };
 
+    const handleOpenContactCard = () => {
+      setIsCardOpen(true);
+    };
+
     handleHash();
     window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
+    window.addEventListener('open-contact-card', handleOpenContactCard);
+    return () => {
+      window.removeEventListener('hashchange', handleHash);
+      window.removeEventListener('open-contact-card', handleOpenContactCard);
+    };
   }, []);
 
   const handleCloseCard = () => {

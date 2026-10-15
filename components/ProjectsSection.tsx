@@ -79,16 +79,25 @@ export default function ProjectsSection() {
     scrollAnimRef.current = requestAnimationFrame(step);
   };
 
+  const isTogglingRef = useRef(false);
+  const collapseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     return () => {
       if (scrollAnimRef.current !== null) {
         cancelAnimationFrame(scrollAnimRef.current);
       }
+      if (collapseTimeoutRef.current !== null) {
+        clearTimeout(collapseTimeoutRef.current);
+      }
     };
   }, []);
 
   const toggleProjects = () => {
+    if (isTogglingRef.current) return;
+
     if (showAllProjects) {
+      isTogglingRef.current = true;
       if (typeof window !== 'undefined') {
         const firstProject =
           document.getElementById('case-study-klavora') ||
@@ -97,11 +106,21 @@ export default function ProjectsSection() {
         if (firstProject) {
           const rect = firstProject.getBoundingClientRect();
           const targetY = Math.max(0, rect.top + window.scrollY - 84);
-          smoothScrollToTarget(targetY, 650);
+          smoothScrollToTarget(targetY, 700, () => {
+            isTogglingRef.current = false;
+          });
+        } else {
+          isTogglingRef.current = false;
         }
       }
 
-      setShowAllProjects(false);
+      // Delay collapsing the accordion drawer so the viewport scrolls smoothly
+      // up to Klavora first. The accordion then closes behind the user,
+      // completely preventing the footer from ever flashing or being clamped into view.
+      if (collapseTimeoutRef.current) clearTimeout(collapseTimeoutRef.current);
+      collapseTimeoutRef.current = setTimeout(() => {
+        setShowAllProjects(false);
+      }, 420);
     } else {
       setShowAllProjects(true);
     }

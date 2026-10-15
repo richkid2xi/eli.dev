@@ -70,7 +70,9 @@ export default function PathModal({
   const handleCloseAndScrollToProjects = () => {
     handleClose();
     const scrollToTarget = () => {
-      const el = document.getElementById('projects');
+      const el =
+        document.getElementById('case-study-klavora') ||
+        document.getElementById('projects');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }

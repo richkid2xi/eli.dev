@@ -178,59 +178,59 @@ export default function HeroSection() {
               </span>
             </button>
           </div>
-          <div className="proggy pt-8 overflow-hidden relative w-full h-16 flex items-center">
+          <div className="proggy pt-8 overflow-hidden relative w-full h-16 flex items-center" aria-hidden="true">
              <div className="flex animate-[scroll_40s_linear_infinite] w-max">
                <div className="flex items-center gap-6 text-shade text-sm md:text-base whitespace-nowrap pr-6">
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiReact /> React</span>
+                  <span className="flex items-center gap-2"><SiReact title="React" aria-hidden="true" aria-label="React" /> React</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiVite /> Vite</span>
+                  <span className="flex items-center gap-2"><SiVite title="Vite" aria-hidden="true" aria-label="Vite" /> Vite</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiTypescript /> TypeScript</span>
+                  <span className="flex items-center gap-2"><SiTypescript title="TypeScript" aria-hidden="true" aria-label="TypeScript" /> TypeScript</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiTailwindcss /> Tailwind</span>
+                  <span className="flex items-center gap-2"><SiTailwindcss title="Tailwind CSS" aria-hidden="true" aria-label="Tailwind CSS" /> Tailwind</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiNodedotjs /> Node.js</span>
+                  <span className="flex items-center gap-2"><SiNodedotjs title="Node.js" aria-hidden="true" aria-label="Node.js" /> Node.js</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiExpress /> Express</span>
+                  <span className="flex items-center gap-2"><SiExpress title="Express" aria-hidden="true" aria-label="Express" /> Express</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiPrisma /> Prisma</span>
+                  <span className="flex items-center gap-2"><SiPrisma title="Prisma" aria-hidden="true" aria-label="Prisma" /> Prisma</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiPostgresql /> PostgreSQL</span>
+                  <span className="flex items-center gap-2"><SiPostgresql title="PostgreSQL" aria-hidden="true" aria-label="PostgreSQL" /> PostgreSQL</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiSupabase /> Supabase</span>
+                  <span className="flex items-center gap-2"><SiSupabase title="Supabase" aria-hidden="true" aria-label="Supabase" /> Supabase</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiNextdotjs /> Next.js</span>
+                  <span className="flex items-center gap-2"><SiNextdotjs title="Next.js" aria-hidden="true" aria-label="Next.js" /> Next.js</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiNestjs /> NestJS</span>
+                  <span className="flex items-center gap-2"><SiNestjs title="NestJS" aria-hidden="true" aria-label="NestJS" /> NestJS</span>
                   <span className="mx-2">|</span>
                   <span className="flex items-center gap-2">Paystack</span>
                   <span className="mx-2">|</span>
                   <span className="flex items-center gap-2">MoMo</span>
                </div>
-               <div className="flex items-center gap-6 text-shade text-sm md:text-base whitespace-nowrap pr-6">
+               <div className="flex items-center gap-6 text-shade text-sm md:text-base whitespace-nowrap pr-6" aria-hidden="true">
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiReact /> React</span>
+                  <span className="flex items-center gap-2"><SiReact title="React" aria-hidden="true" aria-label="React" /> React</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiVite /> Vite</span>
+                  <span className="flex items-center gap-2"><SiVite title="Vite" aria-hidden="true" aria-label="Vite" /> Vite</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiTypescript /> TypeScript</span>
+                  <span className="flex items-center gap-2"><SiTypescript title="TypeScript" aria-hidden="true" aria-label="TypeScript" /> TypeScript</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiTailwindcss /> Tailwind</span>
+                  <span className="flex items-center gap-2"><SiTailwindcss title="Tailwind CSS" aria-hidden="true" aria-label="Tailwind CSS" /> Tailwind</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiNodedotjs /> Node.js</span>
+                  <span className="flex items-center gap-2"><SiNodedotjs title="Node.js" aria-hidden="true" aria-label="Node.js" /> Node.js</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiExpress /> Express</span>
+                  <span className="flex items-center gap-2"><SiExpress title="Express" aria-hidden="true" aria-label="Express" /> Express</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiPrisma /> Prisma</span>
+                  <span className="flex items-center gap-2"><SiPrisma title="Prisma" aria-hidden="true" aria-label="Prisma" /> Prisma</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiPostgresql /> PostgreSQL</span>
+                  <span className="flex items-center gap-2"><SiPostgresql title="PostgreSQL" aria-hidden="true" aria-label="PostgreSQL" /> PostgreSQL</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiSupabase /> Supabase</span>
+                  <span className="flex items-center gap-2"><SiSupabase title="Supabase" aria-hidden="true" aria-label="Supabase" /> Supabase</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiNextdotjs /> Next.js</span>
+                  <span className="flex items-center gap-2"><SiNextdotjs title="Next.js" aria-hidden="true" aria-label="Next.js" /> Next.js</span>
                   <span className="mx-2">|</span>
-                  <span className="flex items-center gap-2"><SiNestjs /> NestJS</span>
+                  <span className="flex items-center gap-2"><SiNestjs title="NestJS" aria-hidden="true" aria-label="NestJS" /> NestJS</span>
                   <span className="mx-2">|</span>
                   <span className="flex items-center gap-2">Paystack</span>
                   <span className="mx-2">|</span>
