@@ -380,8 +380,8 @@ export const caseStudies: Record<string, CaseStudy> = {
     name: 'Rikelm',
     oneLiner:
       'A fast, mobile-first commerce store on a headless architecture, with international payments that work from Ghana.',
-    status: 'live',
-    statusLabel: 'Completed',
+    status: 'coming-soon',
+    statusLabel: 'In development · Coming soon',
     terminalUrl: 'rikelm.com',
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Paystack'],
     sections: [

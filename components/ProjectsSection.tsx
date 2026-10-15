@@ -8,6 +8,7 @@ import { caseStudies, CaseStudy } from '../data/caseStudies';
 
 export default function ProjectsSection() {
   const [activeStudySlug, setActiveStudySlug] = useState<string | null>(null);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const lastTriggerRef = useRef<HTMLElement | null>(null);
 
@@ -34,6 +35,23 @@ export default function ProjectsSection() {
     }
   };
 
+  const toggleProjects = () => {
+    if (showAllProjects) {
+      setShowAllProjects(false);
+      if (typeof window !== 'undefined') {
+        const verdisEl = document.getElementById('case-study-verdis');
+        if (verdisEl) {
+          const rect = verdisEl.getBoundingClientRect();
+          if (rect.top < 0) {
+            verdisEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+    } else {
+      setShowAllProjects(true);
+    }
+  };
+
   // Deep linking and browser Back button support (hashchange & popstate)
   useEffect(() => {
     const handleHash = () => {
@@ -42,6 +60,9 @@ export default function ProjectsSection() {
       if (match) {
         const slug = match[1].toLowerCase();
         if (caseStudies[slug]) {
+          if (['namecheckgh', 'beam', 'rikelm'].includes(slug)) {
+            setShowAllProjects(true);
+          }
           if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
             lastTriggerRef.current = document.activeElement;
           }
@@ -123,10 +144,6 @@ export default function ProjectsSection() {
                   </svg>
                 </span>
               </button>
-              <div className="flex text-xl space-x-3 text-shade">
-                <p className="hover:scale-125 transition ease-in-out duration-300 cursor-pointer"><svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></p>
-                <p className="hover:scale-125 transition ease-in-out duration-300 cursor-pointer"><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M6 6v2h8.59L5 17.59 6.41 19 16 9.41V18h2V6z"></path></svg></p>
-              </div>
             </div>
           </div>
         </div>
@@ -177,168 +194,202 @@ export default function ProjectsSection() {
                   </svg>
                 </span>
               </button>
-              <div className="flex text-xl space-x-2 text-shade">
-                <p className="hover:scale-125 transition ease-in-out duration-300 cursor-pointer"><svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></p>
+            </div>
+          </div>
+        </div>
+
+        {/* Collapsible Drawer for remaining projects (NameCheckGH, Beam, Rikelm) */}
+        <div
+          id="extra-projects-drawer"
+          aria-hidden={!showAllProjects}
+          className={`grid transition-[grid-template-rows,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+            showAllProjects
+              ? 'grid-rows-[1fr] opacity-100'
+              : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+          }`}
+        >
+          <div className="overflow-hidden">
+            {/* 3. NameCheckGH Project */}
+            <div id="case-study-namecheckgh" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
+              <div className="order-first w-full max-w-[550px]">
+                <div className="rounded-xl border border-gray-700 bg-black overflow-hidden shadow-2xl">
+                  <div className="flex items-center px-4 py-3 border-b border-gray-800 bg-[#111111]">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    </div>
+                    <div className="mx-auto proggy text-gray-500 text-sm">namecheckgh.vercel.app</div>
+                  </div>
+                  <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
+                    <img src="/namecheck.png" alt="NameCheckGH business registration availability verification portal mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-lg md:text-2xl font-bold my-3">
+                    <Link href="https://namecheckgh.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group">
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-bright animate-gradient group-hover:opacity-80 transition">NameCheckGH</span>
+                      <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="text-shade group-hover:text-bright transition" height="0.8em" width="0.8em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </Link>
+                  </h3>
+                  <p className="proggy flex items-center text-shade shrink-0">completed</p>
+                </div>
+                <p className="text-shade my-4">A business name verification tool that lets Ghanaian entrepreneurs check name availability before registering, instead of filling out registry paperwork and finding out later someone beat them to it.</p>
+                <p className="flex proggy text-lg text-gray-300"><span>React • Node.js • PostgreSQL</span></p>
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-6">
+                  <button
+                    ref={(el) => {
+                      triggerRefs.current['namecheckgh'] = el;
+                    }}
+                    type="button"
+                    onClick={() => openCaseStudy('namecheckgh')}
+                    aria-haspopup="dialog"
+                    className="proggy group px-5 py-2.5 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+                  >
+                    <span>View Case Study</span>
+                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gray-400 group-hover:text-bright">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Beam Project */}
+            <div id="case-study-beam" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
+              <div className="order-first lg:order-last w-full max-w-[550px]">
+                <div className="rounded-xl border border-gray-700 bg-black overflow-hidden shadow-2xl">
+                  {/* Terminal Header */}
+                  <div className="flex items-center px-4 py-3 border-b border-gray-800 bg-[#111111]">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    </div>
+                    <div className="mx-auto proggy text-gray-500 text-sm">{beamData.terminalUrl || 'beam.local'}</div>
+                  </div>
+                  <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
+                    <img src="/beam.png" alt="Beam local Wi-Fi screen streaming app dashboard mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-lg md:text-2xl font-bold my-3">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-bright animate-gradient">
+                      {beamData.name}
+                    </span>
+                  </h3>
+                  <ProjectStatusBadge status={beamData.status || 'coming-soon'} label={beamData.statusLabel} />
+                </div>
+                <p className="text-shade my-4">{beamData.oneLiner}</p>
+                <p className="flex flex-wrap proggy text-lg text-gray-300">
+                  <span>{beamData.tags?.join(' • ')}</span>
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-6">
+                  <button
+                    ref={(el) => {
+                      triggerRefs.current['beam'] = el;
+                    }}
+                    type="button"
+                    onClick={() => openCaseStudy('beam')}
+                    aria-haspopup="dialog"
+                    className="proggy group px-5 py-2.5 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+                  >
+                    <span>View Case Study</span>
+                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gray-400 group-hover:text-bright">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* 5. Rikelm Project */}
+            <div id="case-study-rikelm" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
+              <div className="order-first w-full max-w-[550px]">
+                <div className="rounded-xl border border-gray-700 bg-black overflow-hidden shadow-2xl">
+                  {/* Terminal Header */}
+                  <div className="flex items-center px-4 py-3 border-b border-gray-800 bg-[#111111]">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    </div>
+                    <div className="mx-auto proggy text-gray-500 text-sm">{rikelmData.terminalUrl || 'rikelm.com'}</div>
+                  </div>
+                  <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
+                    <img src="/rikelm.png" alt="Rikelm headless mobile commerce storefront mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-lg md:text-2xl font-bold my-3">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-bright animate-gradient">
+                      {rikelmData.name}
+                    </span>
+                  </h3>
+                  <ProjectStatusBadge status={rikelmData.status || 'coming-soon'} label={rikelmData.statusLabel || 'In development'} />
+                </div>
+                <p className="text-shade my-4">{rikelmData.oneLiner}</p>
+                <p className="flex flex-wrap proggy text-lg text-gray-300">
+                  <span>{rikelmData.tags?.join(' • ')}</span>
+                </p>
+                <div className="flex flex-wrap items-center gap-3 pt-6">
+                  <button
+                    ref={(el) => {
+                      triggerRefs.current['rikelm'] = el;
+                    }}
+                    type="button"
+                    onClick={() => openCaseStudy('rikelm')}
+                    aria-haspopup="dialog"
+                    className="proggy group px-5 py-2.5 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+                  >
+                    <span>View Case Study</span>
+                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gray-400 group-hover:text-bright">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 3. NameCheckGH Project */}
-        <div id="case-study-namecheckgh" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
-          <div className="order-first w-full max-w-[550px]">
-            <div className="rounded-xl border border-gray-700 bg-black overflow-hidden shadow-2xl">
-              <div className="flex items-center px-4 py-3 border-b border-gray-800 bg-[#111111]">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
-                </div>
-                <div className="mx-auto proggy text-gray-500 text-sm">namecheckgh.vercel.app</div>
-              </div>
-              <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
-                <img src="/namecheck.png" alt="NameCheckGH business registration availability verification portal mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-lg md:text-2xl font-bold my-3">
-                <Link href="https://namecheckgh.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group">
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-bright animate-gradient group-hover:opacity-80 transition">NameCheckGH</span>
-                  <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="text-shade group-hover:text-bright transition" height="0.8em" width="0.8em" xmlns="http://www.w3.org/2000/svg"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                </Link>
-              </h3>
-              <p className="proggy flex items-center text-shade shrink-0">completed</p>
-            </div>
-            <p className="text-shade my-4">A business name verification tool that lets Ghanaian entrepreneurs check name availability before registering, instead of filling out registry paperwork and finding out later someone beat them to it.</p>
-            <p className="flex proggy text-lg text-gray-300"><span>React • Node.js • PostgreSQL</span></p>
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-6">
-              <button
-                ref={(el) => {
-                  triggerRefs.current['namecheckgh'] = el;
-                }}
-                type="button"
-                onClick={() => openCaseStudy('namecheckgh')}
-                aria-haspopup="dialog"
-                className="proggy group px-5 py-2.5 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
-              >
-                <span>View Case Study</span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gray-400 group-hover:text-bright">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                  </svg>
-                </span>
-              </button>
-              <div className="flex text-xl space-x-2 text-shade">
-                <p className="hover:scale-125 transition ease-in-out duration-300 cursor-pointer"><svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 4. Beam Project */}
-        <div id="case-study-beam" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
-          <div className="order-first lg:order-last w-full max-w-[550px]">
-            <div className="rounded-xl border border-gray-700 bg-black overflow-hidden shadow-2xl">
-              {/* Terminal Header */}
-              <div className="flex items-center px-4 py-3 border-b border-gray-800 bg-[#111111]">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
-                </div>
-                <div className="mx-auto proggy text-gray-500 text-sm">{beamData.terminalUrl || 'beam.local'}</div>
-              </div>
-              <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
-                <img src="/beam.png" alt="Beam local Wi-Fi screen streaming app dashboard mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-lg md:text-2xl font-bold my-3">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-bright animate-gradient">
-                  {beamData.name}
-                </span>
-              </h3>
-              <ProjectStatusBadge status={beamData.status || 'coming-soon'} label={beamData.statusLabel} />
-            </div>
-            <p className="text-shade my-4">{beamData.oneLiner}</p>
-            <p className="flex flex-wrap proggy text-lg text-gray-300">
-              <span>{beamData.tags?.join(' • ')}</span>
-            </p>
-            <div className="flex flex-wrap items-center gap-3 pt-6">
-              <button
-                ref={(el) => {
-                  triggerRefs.current['beam'] = el;
-                }}
-                type="button"
-                onClick={() => openCaseStudy('beam')}
-                aria-haspopup="dialog"
-                className="proggy group px-5 py-2.5 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
-              >
-                <span>View Case Study</span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gray-400 group-hover:text-bright">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* 5. Rikelm Project */}
-        <div id="case-study-rikelm" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
-          <div className="order-first w-full max-w-[550px]">
-            <div className="rounded-xl border border-gray-700 bg-black overflow-hidden shadow-2xl">
-              {/* Terminal Header */}
-              <div className="flex items-center px-4 py-3 border-b border-gray-800 bg-[#111111]">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
-                </div>
-                <div className="mx-auto proggy text-gray-500 text-sm">{rikelmData.terminalUrl || 'rikelm.com'}</div>
-              </div>
-              <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
-                <img src="/rikelm.png" alt="Rikelm headless mobile commerce storefront mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-lg md:text-2xl font-bold my-3">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-bright animate-gradient">
-                  {rikelmData.name}
-                </span>
-              </h3>
-              <p className="proggy flex items-center text-shade shrink-0">completed</p>
-            </div>
-            <p className="text-shade my-4">{rikelmData.oneLiner}</p>
-            <p className="flex flex-wrap proggy text-lg text-gray-300">
-              <span>{rikelmData.tags?.join(' • ')}</span>
-            </p>
-            <div className="flex flex-wrap items-center gap-3 pt-6">
-              <button
-                ref={(el) => {
-                  triggerRefs.current['rikelm'] = el;
-                }}
-                type="button"
-                onClick={() => openCaseStudy('rikelm')}
-                aria-haspopup="dialog"
-                className="proggy group px-5 py-2.5 rounded border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright hover:bg-white/[0.04] transition-all duration-300 flex items-center justify-center gap-2 text-sm cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
-              >
-                <span>View Case Study</span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-gray-400 group-hover:text-bright">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-                  </svg>
-                </span>
-              </button>
-            </div>
-          </div>
+        {/* View all / View less Drawer Toggle Button */}
+        <div className="flex justify-center pt-2 pb-12">
+          <button
+            type="button"
+            onClick={toggleProjects}
+            aria-expanded={showAllProjects}
+            aria-controls="extra-projects-drawer"
+            className="proggy group px-6 py-3 rounded-full border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright bg-[#0A0A0C]/80 hover:bg-white/[0.06] backdrop-blur-md transition-all duration-300 flex items-center justify-center gap-2.5 text-sm cursor-pointer shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+          >
+            <span className="font-medium tracking-wide">
+              {showAllProjects ? 'View less' : 'View all'}
+            </span>
+            <svg
+              className={`w-4 h-4 text-gray-400 group-hover:text-bright transition-transform duration-500 ease-out motion-reduce:transition-none ${
+                showAllProjects ? 'rotate-180' : 'rotate-0'
+              }`}
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
 
         <div className="flex justify-end">

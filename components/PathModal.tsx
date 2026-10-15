@@ -69,12 +69,19 @@ export default function PathModal({
 
   const handleCloseAndScrollToProjects = () => {
     handleClose();
-    setTimeout(() => {
+    const scrollToTarget = () => {
       const el = document.getElementById('projects');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }, 150);
+      if (typeof window !== 'undefined' && window.location.hash !== '#projects') {
+        window.history.pushState(null, '', '#projects');
+      }
+    };
+
+    // Wait until ModalCanvasShell close animation and unlockBodyScroll (up to 240ms) complete
+    setTimeout(scrollToTarget, 300);
+    setTimeout(scrollToTarget, 450);
   };
 
   const regularMilestones = pathData.milestones.filter((m) => !m.isWhereThisGoes);

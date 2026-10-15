@@ -67,12 +67,22 @@ export const metadata: Metadata = {
     title: 'Richard Elikem Amenorpe | Technical Project Manager',
     description:
       'Elikem Amenorpe, technical project manager & engineer in Accra, Ghana. Case studies on Klavora, Verdis, Beam & more.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Richard Elikem Amenorpe | Technical Project Manager',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Richard Elikem Amenorpe | Technical Project Manager',
     description:
       'Elikem Amenorpe, technical project manager & engineer in Accra, Ghana. Case studies on Klavora, Verdis, Beam & more.',
+    images: ['/og-image.png'],
   },
   icons: {
     icon: [
