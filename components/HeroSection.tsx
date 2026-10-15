@@ -127,8 +127,8 @@ export default function HeroSection() {
                 {displayed}<span className="animate-pulse">|</span>
               </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold my-3 relative inline-block">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary animate-text-gradient bg-[length:200%_auto]">
+            <h1 aria-label="Richard Elikem Amenorpe" className="text-4xl md:text-6xl font-extrabold my-3 relative inline-block">
+              <span aria-hidden="true" className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-fuchsia-400 to-secondary animate-text-gradient bg-[length:200%_auto]">
                 Richard Elikem.
               </span>
               <span className="sr-only"> Amenorpe</span>

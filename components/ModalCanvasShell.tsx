@@ -93,6 +93,7 @@ export default function ModalCanvasShell({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const scrollRafId = useRef<number | null>(null);
   const mobileNavRef = useRef<HTMLElement>(null);
+  const desktopSidebarRef = useRef<HTMLElement>(null);
 
   const animationTimerRef = useRef<NodeJS.Timeout | null>(null);
   const contentSwapTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -317,46 +318,39 @@ export default function ModalCanvasShell({
     };
   }, [modalState, handleClose]);
 
-  // Section Observer using IntersectionObserver
-  useEffect(() => {
-    if (modalState === 'closed' || sections.length === 0) return;
+  // Real-time deterministic scroll tracking (eliminates race condition & blinking)
+  const updateActiveSectionOnScroll = useCallback(
+    (container: HTMLElement) => {
+      if (isScrollingToSection.current || sections.length === 0) return;
 
-    const container = scrollContainerRef.current;
-    if (!container) return;
+      const containerRect = container.getBoundingClientRect();
+      const readingLine = containerRect.top + Math.min(130, containerRect.height * 0.25);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Guard against programmatic clicks during smooth scrolling
-        if (isScrollingToSection.current) return;
+      let foundSectionId = sections[0].id;
 
-        const intersecting = entries.filter((entry) => entry.isIntersecting);
-        if (intersecting.length > 0) {
-          // If multiple entries intersect, pick the one highest in the reading zone
-          intersecting.sort(
-            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
-          );
-          const activeEntry = intersecting[0];
-          if (activeEntry?.target?.id) {
-            setActive(activeEntry.target.id);
+      for (let i = 0; i < sections.length; i++) {
+        const el = document.getElementById(sections[i].id);
+        if (el) {
+          const elRect = el.getBoundingClientRect();
+          if (elRect.top <= readingLine) {
+            foundSectionId = sections[i].id;
+          } else {
+            break;
           }
         }
-      },
-      {
-        root: container,
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: [0, 1],
       }
-    );
 
-    sections.forEach((sec) => {
-      const el = document.getElementById(sec.id);
-      if (el) observer.observe(el);
-    });
+      // Check if user scrolled to bottom of content -> lock to last section
+      const atBottom =
+        container.scrollHeight - container.scrollTop <= container.clientHeight + 40;
+      if (atBottom && sections.length > 0) {
+        foundSectionId = sections[sections.length - 1].id;
+      }
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [modalState, sections, setActive]);
+      setActive(foundSectionId);
+    },
+    [sections, setActive]
+  );
 
   // Auto-scroll active section tab into view on mobile
   useEffect(() => {
@@ -373,21 +367,40 @@ export default function ModalCanvasShell({
     }
   }, [activeSection, reducedMotion]);
 
-  // Scroll Progress listener throttled with requestAnimationFrame
-  const handleContainerScroll = useCallback((e: React.UIEvent<HTMLElement>) => {
-    const container = e.currentTarget;
-    if (scrollRafId.current !== null) return;
+  // Auto-scroll active section item into view on desktop sidebar
+  useEffect(() => {
+    if (!desktopSidebarRef.current || !activeSection) return;
+    const activeItemEl = desktopSidebarRef.current.querySelector<HTMLElement>(
+      `[data-section-id="${activeSection}"]`
+    );
+    if (activeItemEl) {
+      activeItemEl.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [activeSection, reducedMotion]);
 
-    scrollRafId.current = window.requestAnimationFrame(() => {
-      scrollRafId.current = null;
-      if (!container) return;
-      const scrollTop = container.scrollTop;
-      const scrollHeight = container.scrollHeight - container.clientHeight;
-      const progress =
-        scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
-      setScrollProgress(progress);
-    });
-  }, []);
+  // Scroll Progress and active section listener throttled with requestAnimationFrame
+  const handleContainerScroll = useCallback(
+    (e: React.UIEvent<HTMLElement>) => {
+      const container = e.currentTarget;
+      if (scrollRafId.current !== null) return;
+
+      scrollRafId.current = window.requestAnimationFrame(() => {
+        scrollRafId.current = null;
+        if (!container) return;
+        const scrollTop = container.scrollTop;
+        const scrollHeight = container.scrollHeight - container.clientHeight;
+        const progress =
+          scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+        setScrollProgress(progress);
+
+        updateActiveSectionOnScroll(container);
+      });
+    },
+    [updateActiveSectionOnScroll]
+  );
 
   // Smooth scroll within active container to target section
   const scrollToSection = (id: string) => {
@@ -415,7 +428,7 @@ export default function ModalCanvasShell({
 
     scrollLockTimeoutRef.current = setTimeout(() => {
       isScrollingToSection.current = false;
-    }, 600);
+    }, 750);
   };
 
   // Backdrop click closes when in modal mode (never in expanded mode)
@@ -448,10 +461,14 @@ export default function ModalCanvasShell({
             </h2>
             {headerBadge}
           </div>
-          {subtitle && showDesktopSubtitleInHeader && (
+          {subtitle && (
             <p
               id={descId}
-              className="hidden sm:block text-xs sm:text-sm text-zinc-400 mt-1 line-clamp-1 max-w-2xl font-normal"
+              className={
+                showDesktopSubtitleInHeader
+                  ? 'hidden sm:block text-xs sm:text-sm text-zinc-400 mt-1 line-clamp-1 max-w-2xl font-normal'
+                  : 'sr-only'
+              }
             >
               {subtitle}
             </p>
@@ -587,7 +604,7 @@ export default function ModalCanvasShell({
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
-      aria-describedby={descId}
+      aria-describedby={subtitle && descId ? descId : undefined}
       onClick={handleBackdropClick}
     >
       {/* Dimmed Backdrop: Solid rgba on mobile (no blur), blurred on desktop */}
@@ -642,6 +659,7 @@ export default function ModalCanvasShell({
           {/* Desktop Sidebar Navigation */}
           {showSidebar && sections.length > 0 && (
             <aside
+              ref={desktopSidebarRef}
               aria-label="Section shortcuts"
               className="hidden md:flex flex-col w-60 lg:w-64 shrink-0 border-r border-white/[0.05] bg-[#0A0A0C]/80 p-6 lg:p-7 justify-between overflow-y-auto no-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
@@ -665,6 +683,7 @@ export default function ModalCanvasShell({
                         <button
                           key={sec.id}
                           type="button"
+                          data-section-id={sec.id}
                           onClick={() => scrollToSection(sec.id)}
                           className={`w-full group text-left px-3 py-2 rounded-lg text-xs transition-colors flex items-center gap-2.5 font-mono cursor-pointer ${
                             isActive

@@ -66,6 +66,7 @@ export default function ExecutionFrameworkModal({
                 <button
                   key={phase.id}
                   type="button"
+                  data-section-id={phase.id}
                   onClick={() => scrollToSection(phase.id)}
                   className={`w-full text-left p-2.5 rounded-lg transition-colors flex items-start gap-3 group ${
                     isActive
@@ -98,6 +99,7 @@ export default function ExecutionFrameworkModal({
 
             <button
               type="button"
+              data-section-id="principles"
               onClick={() => scrollToSection('principles')}
               className={`w-full text-left p-2.5 rounded-lg transition-colors flex items-start gap-3 group ${
                 activeSection === 'principles'

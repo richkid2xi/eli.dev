@@ -38,16 +38,17 @@ export default function ProjectsSection() {
 
   const toggleProjects = () => {
     if (showAllProjects) {
-      setShowAllProjects(false);
       if (typeof window !== 'undefined') {
-        const verdisEl = document.getElementById('case-study-verdis');
-        if (verdisEl) {
-          const rect = verdisEl.getBoundingClientRect();
-          if (rect.top < 0) {
-            verdisEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+        const firstProject =
+          document.getElementById('case-study-klavora') ||
+          document.getElementById('projects');
+        if (firstProject) {
+          firstProject.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
+      setTimeout(() => {
+        setShowAllProjects(false);
+      }, 160);
     } else {
       setShowAllProjects(true);
     }
@@ -217,8 +218,8 @@ export default function ProjectsSection() {
                 height: 0,
                 opacity: 0,
                 transition: {
-                  height: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
-                  opacity: { duration: 0.3, ease: 'easeIn' },
+                  height: { duration: 0.65, ease: [0.25, 1, 0.5, 1] },
+                  opacity: { duration: 0.35, ease: 'easeOut' },
                 },
               }}
               className="overflow-hidden"
@@ -384,12 +385,15 @@ export default function ProjectsSection() {
 
         {/* View all / View less Drawer Toggle Button */}
         <div className="flex justify-center pt-2 pb-12">
-          <button
+          <motion.button
             type="button"
             onClick={toggleProjects}
             aria-expanded={showAllProjects}
-            aria-controls="extra-projects-drawer"
-            className="proggy group px-6 py-3 rounded-full border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright bg-[#0A0A0C]/80 hover:bg-white/[0.06] backdrop-blur-md transition-all duration-300 flex items-center justify-center gap-2.5 text-sm cursor-pointer shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+            aria-controls={showAllProjects ? 'extra-projects-drawer' : undefined}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 450, damping: 16 }}
+            className="proggy group px-6 py-3 rounded-full border border-shade/40 hover:border-bright/70 text-gray-300 hover:text-bright bg-[#0A0A0C]/80 hover:bg-white/[0.06] backdrop-blur-md transition-colors duration-200 flex items-center justify-center gap-2.5 text-sm cursor-pointer shadow-lg select-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
           >
             <span className="font-medium tracking-wide">
               {showAllProjects ? 'View less' : 'View all'}
@@ -406,7 +410,7 @@ export default function ProjectsSection() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
-          </button>
+          </motion.button>
         </div>
 
         <div className="flex justify-end">
@@ -432,7 +436,7 @@ export default function ProjectsSection() {
                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g id="Folder_On"><path d="M19.435,19.94H4.565a2.5,2.5,0,0,1-2.5-2.5V6.56a2.5,2.5,0,0,1,2.5-2.5h5.27A2.5,2.5,0,0,1,12.292,6.1l.042.222a.5.5,0,0,0,.491.408h6.61a2.5,2.5,0,0,1,2.5,2.5v8.21A2.5,2.5,0,0,1,19.435,19.94ZM4.565,5.06a1.5,1.5,0,0,0-1.5,1.5V17.44a1.5,1.5,0,0,0,1.5,1.5h14.87a1.5,1.5,0,0,0,1.5-1.5V9.23a1.5,1.5,0,0,0-1.5-1.5h-6.61a1.5,1.5,0,0,1-1.474-1.225l-.042-.221A1.5,1.5,0,0,0,9.835,5.06Z"></path></g></svg>
                   </p>
                   <div className="flex text-xl space-x-2">
-                    <a target="_blank" href="https://github.com/ruachost/third-party-domain-template" rel="noopener noreferrer"><p className="hover:scale-125 transition ease-in-out duration-300"><svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></p></a>
+                    <a target="_blank" href="https://github.com/ruachost/third-party-domain-template" rel="noopener noreferrer" aria-label="Find It Ghana GitHub repository"><p className="hover:scale-125 transition ease-in-out duration-300"><svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></p></a>
                   </div>
                 </div>
                 <div className="flex flex-col space-y-2 pt-3">

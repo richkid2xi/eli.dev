@@ -110,12 +110,11 @@ export default function Home() {
 
       {/* Main Wrapper - centered, full width on mobile */}
       <div className="w-full max-w-[1200px] mx-auto relative">
+        <Navbar />
+
         {/* Main Content (Centered) */}
-        <main className="w-full max-w-[901px] mx-auto px-5 sm:px-8 lg:px-0 pt-[calc(56px+env(safe-area-inset-top,0px))] lg:pt-0">
-          <Navbar />
-          <Reveal direction="up" delay={100}>
-            <HeroSection />
-          </Reveal>
+        <main id="main-content" className="w-full max-w-[901px] mx-auto px-5 sm:px-8 lg:px-0 pt-[calc(56px+env(safe-area-inset-top,0px))] lg:pt-0">
+          <HeroSection />
           <Reveal direction="up" delay={0}>
             <AboutSection />
           </Reveal>
@@ -131,49 +130,51 @@ export default function Home() {
           <Reveal direction="up" delay={0}>
             <ProjectsSection />
           </Reveal>
-          <Reveal direction="up" delay={0}>
-            <Footer />
-          </Reveal>
         </main>
-      </div>
 
-      {/* Server-Rendered Semantic Index for Web Crawlers & Screen Readers */}
-      <section className="sr-only" aria-label="Case Studies and Milestones Archive">
-        <h2>Case Studies Index</h2>
-        {Object.values(caseStudies).map((study) => (
-          <article key={study.slug} id={`index-${study.slug}`}>
-            <h3>{study.name} — {study.oneLiner}</h3>
-            <p><strong>Status:</strong> {study.statusLabel || study.status}</p>
-            <p><strong>Stack:</strong> {study.tags?.join(', ')}</p>
-            <div>
-              {study.sections?.map((sec) => (
-                <div key={sec.id}>
-                  <h4>{sec.title}</h4>
-                  {'content' in sec && typeof sec.content === 'string' && <p>{sec.content}</p>}
-                  {'items' in sec && Array.isArray(sec.items) && (
-                    <ul>
-                      {sec.items.map((item, idx) => (
-                        <li key={idx}>
-                          {typeof item === 'string' ? item : `${item.key}: ${item.value}`}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {'tags' in sec && Array.isArray(sec.tags) && <p>{sec.tags.join(', ')}</p>}
+        {/* Footer Landmark with Section and Archive */}
+        <footer className="w-full max-w-[901px] mx-auto px-5 sm:px-8 lg:px-0">
+          <Footer />
+
+          {/* Server-Rendered Semantic Index for Web Crawlers & Screen Readers */}
+          <section className="sr-only" aria-label="Case Studies and Milestones Archive">
+            <h2>Case Studies Index</h2>
+            {Object.values(caseStudies).map((study) => (
+              <article key={study.slug} id={`index-${study.slug}`}>
+                <h3>{study.name} — {study.oneLiner}</h3>
+                <p><strong>Status:</strong> {study.statusLabel || study.status}</p>
+                <p><strong>Stack:</strong> {study.tags?.join(', ')}</p>
+                <div>
+                  {study.sections?.map((sec) => (
+                    <div key={sec.id}>
+                      <h4>{sec.title}</h4>
+                      {'content' in sec && typeof sec.content === 'string' && <p>{sec.content}</p>}
+                      {'items' in sec && Array.isArray(sec.items) && (
+                        <ul>
+                          {sec.items.map((item, idx) => (
+                            <li key={idx}>
+                              {typeof item === 'string' ? item : `${item.key}: ${item.value}`}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {'tags' in sec && Array.isArray(sec.tags) && <p>{sec.tags.join(', ')}</p>}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </article>
-        ))}
+              </article>
+            ))}
 
-        <h2>The Path: Evolution from Builder to Technical Project Manager</h2>
-        {pathData.milestones.map((milestone) => (
-          <article key={milestone.id}>
-            <h3>{milestone.title} ({milestone.year})</h3>
-            <p>{milestone.description}</p>
-          </article>
-        ))}
-      </section>
+            <h2>The Path: Evolution from Builder to Technical Project Manager</h2>
+            {pathData.milestones.map((milestone) => (
+              <article key={milestone.id}>
+                <h3>{milestone.title} ({milestone.year})</h3>
+                <p>{milestone.description}</p>
+              </article>
+            ))}
+          </section>
+        </footer>
+      </div>
     </div>
   );
 }
