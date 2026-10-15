@@ -13,7 +13,7 @@ import ScrollProgress from '../components/ScrollProgress';
 import Reveal from '../components/Reveal';
 import PathModal from '../components/PathModal';
 import { getSiteUrl } from '../lib/siteUrl';
-import { caseStudies } from '../data/caseStudies';
+import { caseStudies, getVisibleSections } from '../data/caseStudies';
 import { pathData } from '../data/pathMilestones';
 
 export default function Home() {
@@ -139,31 +139,63 @@ export default function Home() {
           {/* Server-Rendered Semantic Index for Web Crawlers & Screen Readers */}
           <section className="sr-only" aria-label="Case Studies and Milestones Archive">
             <h2>Case Studies Index</h2>
-            {Object.values(caseStudies).map((study) => (
-              <article key={study.slug} id={`index-${study.slug}`}>
-                <h3>{study.name} — {study.oneLiner}</h3>
-                <p><strong>Status:</strong> {study.statusLabel || study.status}</p>
-                <p><strong>Stack:</strong> {study.tags?.join(', ')}</p>
-                <div>
-                  {study.sections?.map((sec) => (
-                    <div key={sec.id}>
-                      <h4>{sec.title}</h4>
-                      {'content' in sec && typeof sec.content === 'string' && <p>{sec.content}</p>}
-                      {'items' in sec && Array.isArray(sec.items) && (
-                        <ul>
-                          {sec.items.map((item, idx) => (
-                            <li key={idx}>
-                              {typeof item === 'string' ? item : `${item.key}: ${item.value}`}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      {'tags' in sec && Array.isArray(sec.tags) && <p>{sec.tags.join(', ')}</p>}
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ))}
+            {Object.values(caseStudies).map((study) => {
+              const visibleSections = getVisibleSections(study.sections);
+              return (
+                <article key={study.slug} id={`index-${study.slug}`}>
+                  <h3>{study.name} — {study.oneLiner}</h3>
+                  <p><strong>Status:</strong> {study.statusLabel || study.status}</p>
+                  <p><strong>Stack:</strong> {study.tags?.join(', ')}</p>
+                  <div>
+                    {visibleSections.length === 0 ? (
+                      <p>
+                        Detailed architecture breakdown, technical decisions, and engineering tradeoffs
+                        for {study.name} are currently being compiled.
+                      </p>
+                    ) : (
+                      visibleSections.map((sec) => (
+                        <div key={sec.id}>
+                          <h4>{sec.title}</h4>
+                          {sec.type === 'paragraph' && <p>{sec.content}</p>}
+                          {sec.type === 'bulletList' && (
+                            <ul>
+                              {sec.items.map((item, idx) => (
+                                <li key={idx}>{item}</li>
+                              ))}
+                            </ul>
+                          )}
+                          {sec.type === 'keyValue' && (
+                            <ul>
+                              {sec.items.map((item, idx) => (
+                                <li key={idx}>
+                                  <strong>{item.key}</strong>: {item.value}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          {sec.type === 'tagRow' && <p>{sec.tags.join(', ')}</p>}
+                          {sec.type === 'metricsRow' && (
+                            <ul>
+                              {sec.metrics.map((m, idx) => (
+                                <li key={idx}>
+                                  <strong>{m.value}</strong>: {m.label}
+                                  {m.description ? ` (${m.description})` : ''}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                          {sec.type === 'callout' && (
+                            <div>
+                              <p>{sec.text}</p>
+                            </div>
+                          )}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </article>
+              );
+            })}
 
             <h2>The Path: Evolution from Builder to Technical Project Manager</h2>
             {pathData.milestones.map((milestone) => (

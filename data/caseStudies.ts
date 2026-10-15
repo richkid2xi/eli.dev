@@ -69,6 +69,81 @@ export interface CaseStudy {
   sections?: CaseStudySection[];
 }
 
+// Rendering rule helper: check if text is a placeholder containing square brackets
+export function hasPlaceholder(str?: string): boolean {
+  if (!str) return false;
+  return /\[.*?\]/.test(str);
+}
+
+// Clean text by stripping out any bracketed placeholders
+export function cleanText(str?: string): string {
+  if (!str) return '';
+  return str.replace(/\[.*?\]/g, '').trim();
+}
+
+// Filter case study sections to only those with valid, visible content
+export function getVisibleSections(sections?: CaseStudySection[]): CaseStudySection[] {
+  if (!sections || sections.length === 0) return [];
+
+  return sections
+    .map((section): CaseStudySection | null => {
+      if (section.type === 'paragraph') {
+        const cleaned = cleanText(section.content);
+        if (!cleaned) return null;
+        return { ...section, content: cleaned };
+      }
+
+      if (section.type === 'bulletList') {
+        const validItems = section.items
+          .map((item) => cleanText(item))
+          .filter((item) => item.length > 0 && !hasPlaceholder(item));
+        if (validItems.length === 0) return null;
+        return { ...section, items: validItems };
+      }
+
+      if (section.type === 'keyValue') {
+        const validItems = section.items.filter(
+          (kv) =>
+            !hasPlaceholder(kv.key) &&
+            !hasPlaceholder(kv.value) &&
+            kv.key.trim().length > 0 &&
+            kv.value.trim().length > 0
+        );
+        if (validItems.length === 0) return null;
+        return { ...section, items: validItems };
+      }
+
+      if (section.type === 'tagRow') {
+        const validTags = section.tags.filter(
+          (t) => !hasPlaceholder(t) && t.trim().length > 0
+        );
+        if (validTags.length === 0) return null;
+        return { ...section, tags: validTags };
+      }
+
+      if (section.type === 'metricsRow') {
+        const validMetrics = section.metrics.filter(
+          (m) =>
+            !hasPlaceholder(m.value) &&
+            !hasPlaceholder(m.label) &&
+            m.value.trim().length > 0 &&
+            m.label.trim().length > 0
+        );
+        if (validMetrics.length === 0) return null;
+        return { ...section, metrics: validMetrics };
+      }
+
+      if (section.type === 'callout') {
+        const cleaned = cleanText(section.text);
+        if (!cleaned) return null;
+        return { ...section, text: cleaned };
+      }
+
+      return section;
+    })
+    .filter((sec): sec is CaseStudySection => sec !== null);
+}
+
 export const caseStudies: Record<string, CaseStudy> = {
   klavora: {
     slug: 'klavora',
@@ -150,13 +225,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         content:
           'Solo build with a collaborator on the landing page and frontend. Wrote the PRD and partner-facing product documentation, prioritized the backlog, ran outreach to pharmacies, and set pricing. Planned extension: Klavora Finder, a consumer-facing drug-availability map.',
       },
-      {
-        type: 'paragraph',
-        id: 'outcome',
-        title: 'Outcome',
-        content:
-          '[number of pharmacies piloting or in conversation] [SKUs imported in largest onboarding] [k6 results: concurrent users and p95 latency] [uptime since VPS migration]',
-      },
     ],
   },
 
@@ -220,13 +288,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: 'Delivery',
         content:
           'Full PRD, technical abstract, GitHub README, A1 research poster, UI generation prompts, prototype data pipelines, and interactive Python dashboards that turn data into actionable guidance.',
-      },
-      {
-        type: 'paragraph',
-        id: 'outcome',
-        title: 'Outcome',
-        content:
-          '[number of districts covered] [number of crops or diseases in the rule base] [where it was presented or submitted]',
       },
     ],
   },
@@ -351,27 +412,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         content:
           'Move validation to the start of the journey. The product answers one question, "can I use this name?", instantly. Scope was deliberately kept narrow, with no registration flow, because a single-purpose tool is faster to ship, easier to explain, and a natural top-of-funnel for adjacent services.',
       },
-      {
-        type: 'paragraph',
-        id: 'architecture',
-        title: 'Architecture',
-        content:
-          '[stack] [data source: how availability is determined] [why a single-input, instant-result UI]',
-      },
-      {
-        type: 'paragraph',
-        id: 'tradeoffs',
-        title: 'Tradeoffs',
-        content:
-          '[accuracy vs. freshness of the name data] [why the full registration flow was not built]',
-      },
-      {
-        type: 'paragraph',
-        id: 'outcome',
-        title: 'Outcome',
-        content:
-          '[users / searches] [time saved vs. the manual process]',
-      },
     ],
   },
 
@@ -422,13 +462,6 @@ export const caseStudies: Record<string, CaseStudy> = {
           'Cart failures traced to a missing Stock Location and Sales Channel configuration in Medusa. Account creation and sign-in verified against the real backend.',
           'Status: Password-reset OTP is still simulated, pending Resend integration. Shown openly as honest scoping.',
         ],
-      },
-      {
-        type: 'paragraph',
-        id: 'outcome',
-        title: 'Outcome',
-        content:
-          '[launch date / status] [Lighthouse mobile score] [first orders]',
       },
     ],
   },

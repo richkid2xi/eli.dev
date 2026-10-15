@@ -12,6 +12,7 @@ import {
   MetricsRowSection,
   CalloutSection,
   MetricItem,
+  getVisibleSections,
 } from '../data/caseStudies';
 import ProjectStatusBadge from './ProjectStatusBadge';
 
@@ -22,85 +23,15 @@ interface CaseStudyModalProps {
   triggerRef?: React.RefObject<HTMLElement | null>;
 }
 
-// Rendering rule helper: check if text is a placeholder containing square brackets
-function hasPlaceholder(str?: string): boolean {
-  if (!str) return false;
-  return /\[.*?\]/.test(str);
-}
-
-// Clean text by stripping out any bracketed placeholders like [like this]
-function cleanText(str?: string): string {
-  if (!str) return '';
-  return str.replace(/\[.*?\]/g, '').trim();
-}
-
 export default function CaseStudyModal({
   study,
   isOpen,
   onClose,
   triggerRef,
 }: CaseStudyModalProps) {
-  // Filter sections by applying placeholder rendering rules
+  // Filter sections using the shared case study visible section rules
   const visibleSections = useMemo(() => {
-    if (!study.sections || study.sections.length === 0) return [];
-
-    return study.sections
-      .map((section): CaseStudySection | null => {
-        if (section.type === 'paragraph') {
-          const cleaned = cleanText(section.content);
-          if (!cleaned) return null;
-          return { ...section, content: cleaned };
-        }
-
-        if (section.type === 'bulletList') {
-          const validItems = section.items
-            .map((item) => cleanText(item))
-            .filter((item) => item.length > 0 && !hasPlaceholder(item));
-          if (validItems.length === 0) return null;
-          return { ...section, items: validItems };
-        }
-
-        if (section.type === 'keyValue') {
-          const validItems = section.items.filter(
-            (kv) =>
-              !hasPlaceholder(kv.key) &&
-              !hasPlaceholder(kv.value) &&
-              kv.key.trim().length > 0 &&
-              kv.value.trim().length > 0
-          );
-          if (validItems.length === 0) return null;
-          return { ...section, items: validItems };
-        }
-
-        if (section.type === 'tagRow') {
-          const validTags = section.tags.filter(
-            (t) => !hasPlaceholder(t) && t.trim().length > 0
-          );
-          if (validTags.length === 0) return null;
-          return { ...section, tags: validTags };
-        }
-
-        if (section.type === 'metricsRow') {
-          const validMetrics = section.metrics.filter(
-            (m) =>
-              !hasPlaceholder(m.value) &&
-              !hasPlaceholder(m.label) &&
-              m.value.trim().length > 0 &&
-              m.label.trim().length > 0
-          );
-          if (validMetrics.length === 0) return null;
-          return { ...section, metrics: validMetrics };
-        }
-
-        if (section.type === 'callout') {
-          const cleaned = cleanText(section.text);
-          if (!cleaned) return null;
-          return { ...section, text: cleaned };
-        }
-
-        return section;
-      })
-      .filter((sec): sec is CaseStudySection => sec !== null);
+    return getVisibleSections(study.sections);
   }, [study.sections]);
 
   // Generate modal sections for navigation with full section titles
