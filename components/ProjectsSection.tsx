@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import ProjectStatusBadge from './ProjectStatusBadge';
 import CaseStudyModal from './CaseStudyModal';
 import { caseStudies, CaseStudy } from '../data/caseStudies';
@@ -198,17 +199,31 @@ export default function ProjectsSection() {
           </div>
         </div>
 
-        {/* Collapsible Drawer for remaining projects (NameCheckGH, Beam, Rikelm) */}
-        <div
-          id="extra-projects-drawer"
-          aria-hidden={!showAllProjects}
-          className={`grid transition-[grid-template-rows,opacity] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-            showAllProjects
-              ? 'grid-rows-[1fr] opacity-100'
-              : 'grid-rows-[0fr] opacity-0 pointer-events-none'
-          }`}
-        >
-          <div className="overflow-hidden">
+        {/* Collapsible Accordion Drawer for remaining projects (NameCheckGH, Beam, Rikelm) */}
+        <AnimatePresence initial={false}>
+          {showAllProjects && (
+            <motion.div
+              id="extra-projects-drawer"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: 'auto',
+                opacity: 1,
+                transition: {
+                  height: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.5, ease: 'easeOut', delay: 0.08 },
+                },
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+                transition: {
+                  height: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.3, ease: 'easeIn' },
+                },
+              }}
+              className="overflow-hidden"
+            >
+              <div>
             {/* 3. NameCheckGH Project */}
             <div id="case-study-namecheckgh" className="relative grid grid-cols-1 mb-16 md:mb-20 lg:grid-cols-2 gap-8 place-items-center border border-gray-600 border-dotted rounded px-4 py-16 md:p-8 scroll-mt-24">
               <div className="order-first w-full max-w-[550px]">
@@ -363,7 +378,9 @@ export default function ProjectsSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
 
         {/* View all / View less Drawer Toggle Button */}
         <div className="flex justify-center pt-2 pb-12">
