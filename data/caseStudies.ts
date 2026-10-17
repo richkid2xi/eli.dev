@@ -297,9 +297,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     name: 'Beam',
     oneLiner:
       'Cast your Android screen to a browser over your own network, with no cloud, no account, and nothing to install on the viewing device.',
-    status: 'coming-soon',
-    statusLabel: 'In development · Coming soon',
-    terminalUrl: 'beam.local',
+    status: 'live',
+    statusLabel: 'Live',
+    terminalUrl: 'beam-livecast.vercel.app',
     tags: ['Kotlin', 'Android', 'Wi-Fi', 'PWA-style web viewer', 'Serverless'],
     sections: [
       {
@@ -375,8 +375,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         type: 'callout',
         id: 'outcome',
         title: 'Outcome',
-        text: 'Status: Wi-Fi phone-to-browser casting working end to end; broader release coming soon.',
-        variant: 'amber',
+        text: 'Status: Live at beam-livecast.vercel.app with APK release and web viewer running end-to-end.',
+        variant: 'success',
       },
     ],
   },

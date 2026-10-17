@@ -358,7 +358,7 @@ export default function ProjectsSection() {
                       <div className="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
                       <div className="w-3 h-3 rounded-full bg-[#27C93F]"></div>
                     </div>
-                    <div className="mx-auto proggy text-gray-500 text-sm">{beamData.terminalUrl || 'beam.local'}</div>
+                    <div className="mx-auto proggy text-gray-500 text-sm">{beamData.terminalUrl || 'beam-livecast.vercel.app'}</div>
                   </div>
                   <div className="relative w-full aspect-video bg-neutral-900 overflow-hidden">
                     <img src="/beam.png" alt="Beam local Wi-Fi screen streaming app dashboard mockup" loading="lazy" width={550} height={310} className="w-full h-full object-cover" />
@@ -368,17 +368,40 @@ export default function ProjectsSection() {
               <div>
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-lg md:text-2xl font-bold my-3">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-bright animate-gradient">
-                      {beamData.name}
-                    </span>
+                    <Link
+                      href="https://beam-livecast.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 group"
+                    >
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-bright animate-gradient group-hover:opacity-80 transition">
+                        {beamData.name}
+                      </span>
+                      <svg
+                        stroke="currentColor"
+                        fill="none"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-shade group-hover:text-bright transition"
+                        height="0.8em"
+                        width="0.8em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </Link>
                   </h3>
-                  <ProjectStatusBadge status={beamData.status || 'coming-soon'} label={beamData.statusLabel} />
+                  <ProjectStatusBadge status={beamData.status || 'live'} label={beamData.statusLabel} />
                 </div>
                 <p className="text-shade my-4">{beamData.oneLiner}</p>
                 <p className="flex flex-wrap proggy text-lg text-gray-300">
                   <span>{beamData.tags?.join(' • ')}</span>
                 </p>
-                <div className="flex flex-wrap items-center gap-3 pt-6">
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-6">
                   <button
                     ref={(el) => {
                       triggerRefs.current['beam'] = el;

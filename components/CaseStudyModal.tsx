@@ -70,6 +70,21 @@ export default function CaseStudyModal({
             Case Study
           </div>
           <div className="text-sm font-medium text-zinc-200">{study.name} Overview</div>
+          {study.terminalUrl && study.status === 'live' && (
+            <a
+              href={`https://${study.terminalUrl}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 hover:text-emerald-300 transition-colors"
+            >
+              <span>Live Site</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          )}
         </div>
       }
       sidebarFooter={
@@ -105,6 +120,38 @@ export default function CaseStudyModal({
             <p className="text-[15px] sm:text-base text-zinc-300 leading-[1.6] max-w-3xl">
               {study.oneLiner}
             </p>
+            {study.terminalUrl && study.status === 'live' && (
+              <div className="pt-2">
+                <a
+                  href={`https://${study.terminalUrl}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.2] text-xs font-mono text-zinc-200 hover:text-white transition group"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-emerald-400"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span>{study.terminalUrl}</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-zinc-400 group-hover:text-white transition-colors"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              </div>
+            )}
           </div>
 
           {/* If no sections exist, render clean 'Case study coming soon' state */}
@@ -313,9 +360,14 @@ function RenderMetricsRow({ section }: { section: MetricsRowSection }) {
 
 function RenderCallout({ section }: { section: CalloutSection }) {
   const isAmber = section.variant === 'amber';
-  const borderClass = isAmber ? 'border-amber-500/25 bg-amber-500/[0.06]' : 'border-blue-500/25 bg-blue-500/[0.06]';
-  const dotClass = isAmber ? 'bg-amber-400' : 'bg-blue-400';
-  const textClass = isAmber ? 'text-amber-200' : 'text-blue-200';
+  const isSuccess = section.variant === 'success';
+  const borderClass = isAmber
+    ? 'border-amber-500/25 bg-amber-500/[0.06]'
+    : isSuccess
+    ? 'border-emerald-500/25 bg-emerald-500/[0.06]'
+    : 'border-blue-500/25 bg-blue-500/[0.06]';
+  const dotClass = isAmber ? 'bg-amber-400' : isSuccess ? 'bg-emerald-400' : 'bg-blue-400';
+  const textClass = isAmber ? 'text-amber-200' : isSuccess ? 'text-emerald-200' : 'text-blue-200';
 
   return (
     <div className={`rounded-xl border p-4 min-[390px]:p-5 sm:p-6 flex items-start gap-3.5 ${borderClass}`}>
