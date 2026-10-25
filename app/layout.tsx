@@ -99,7 +99,7 @@ export const metadata: Metadata = {
   verification: {
     google: 'CjrTi8yZVYAp1URq9r94HX-8er7LIIlYrDay-KfJ9Go',
     other: {
-      'leaklens-verification': 'll_L8ZIE0zG5EV5MzzFWRGYvE6P_11uIWlM_M69kNQKgqM',
+      'leaklens-verification': 'll_L0jL6SKFKHrQ4HWcts7CE3XfQR1jMHmHcLs1mJAuGik',
     },
   },
 };
